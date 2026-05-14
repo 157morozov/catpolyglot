@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="/css/client/new.css">
+<link rel="stylesheet" href="/css/client/components/sandbox.css">
+
+{{>subheader}}
+{{>header}}
+
+<main>
+    <a href="/news" class="new-return-link">Ко всем новостям</a>
+    {{#if cache.CurrentNew}}
+    <section class="new">
+        <pre class="sandbox">
+            <img src="/img/uploaded/{{cache.CurrentNew.new_image}}" wide alt="Баннер новости"><br><h1>{{cache.CurrentNew.new_title}}</h1>{{{cache.CurrentNew.new_description}}}</pre>
+    </section>
+    {{else}}
+    <p>Такой новости не существует</p>
+    {{/if}}
+</main>
+
+{{>footer}}

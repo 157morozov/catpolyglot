@@ -1,0 +1,141 @@
+/* WELCOME */
+
+.welcome {
+    width: calc(100% - 10px * 2);
+    margin: 10px;
+}
+
+.welcome-title {
+    font-size: var(--admin-font-size-xxl);
+    text-align: center;
+    text-wrap: balance;
+    margin: 20px 0 20px 0;
+}
+
+.welcome-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.panel-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--admin-const-white);
+    font-weight: bold;
+}
+
+.panel-footer>.panel-img {
+    transform: rotate(0);
+}
+
+.panel:is(:hover, :focus)>.panel-footer>.panel-img {
+    transform: scale(1.1) rotate(0);
+}
+
+.panel-back-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    max-width: 100px;
+    object-fit: contain;
+}
+
+.panel.timeweb {
+    background-color: var(--admin-color-timeweb);
+}
+
+.panel.timeweb:is(:hover, :focus-visible) {
+    background-color: var(--admin-color-timeweb-focus);
+}
+
+.panel.timeweb:active {
+    background-color: var(--admin-color-timeweb-active);
+}
+
+.panel.regru {
+    background-color: var(--admin-color-regru);
+}
+
+.panel.regru:is(:hover, :focus-visible) {
+    background-color: var(--admin-color-regru-focus);
+}
+
+.panel.regru:active {
+    background-color: var(--admin-color-regru-active);
+}
+
+/* PANELS */
+
+.panels {
+    width: calc(100% - 10px * 2);
+    margin: 10px;
+}
+
+.panel-title {
+    margin: 0 0 20px 5px;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.panels-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.panel {
+    position: relative;
+    width: calc(100% / 3 - 10px - 10px * 2);
+    margin: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--admin-border-radius-s);
+    color: var(--admin-const-white);
+    background-color: var(--admin-color-blue);
+    font-weight: bold;
+    transition: .2s;
+}
+
+.panel-img {
+    width: auto;
+    height: 40px;
+    filter: invert(1);
+    transition: .2s;
+    pointer-events: none;
+    transform: rotate(45deg);
+}
+
+.panel:is(:hover, :focus-visible) {
+    background-color: var(--admin-color-blue-focus);
+}
+
+.panel:active {
+    background-color: var(--admin-color-blue-active);
+}
+
+.panel:is(:hover, :focus-visible)>.panel-img {
+    transform: scale(1.1) rotate(45deg);
+}
+
+@media (max-width: 1000px) {
+    .panel {
+        width: calc(100% / 2 - 10px - 10px * 2);
+    }
+}
+
+@media (max-width: 800px) {
+    .panel-title {
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .panel {
+        width: calc(100% - 10px - 10px * 2);
+    }
+}

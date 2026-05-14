@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/css/client/components/subheader.css">
+
+{{#if cache.Contacts}}
+<subheader>
+    {{#each cache.Contacts}}
+    {{#compare contact_type "===" "Телефон"}}
+    <a href="tel:{{formatPhoneNumber contact_content}}" class="subheader-link">{{contact_content}}</a>
+    {{/compare}}
+    {{/each}}
+    <div class="subheader-socials">
+        {{#each cache.Contacts}}
+        {{#compare contact_type "===" "Whatsapp"}}
+        <a href={{contact_content}} target="_blank" title="Whatsapp" class="subheader-social">
+            <img src="/img/icons/Whatsapp.svg" alt="Whatsapp">
+        </a>
+        {{/compare}}
+        {{#compare contact_type "===" "Telegram"}}
+        <a href={{contact_content}} target="_blank" title="Telegram" class="subheader-social">
+            <img src="/img/icons/Telegram.svg" alt="Telegram">
+        </a>
+        {{/compare}}
+        {{#compare contact_type "===" "VK"}}
+        <a href={{contact_content}} target="_blank" title="VK" class="subheader-social">
+            <img src="/img/icons/VK.svg" alt="VK">
+        </a>
+        {{/compare}}
+        {{#compare contact_type "===" "Viber"}}
+        <a href={{contact_content}} target="_blank" title="Viber" class="subheader-social">
+            <img src="/img/icons/Viber.svg" alt="Viber">
+        </a>
+        {{/compare}}
+        {{/each}}
+    </div>
+</subheader>
+{{/if}}

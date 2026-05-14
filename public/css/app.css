@@ -1,0 +1,80 @@
+@font-face {
+    font-family: Unbounded;
+    src: url("/font/Unbounded.ttf");
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url("/font/Montserrat.ttf");
+}
+
+:root {
+    --color-accent: #42bac5;
+    --color-accent-focus: #39a3ad;
+    --color-accent-active: #318c94;
+    --color-gray-light: #EBEBEB;
+    --color-gray: #D7D7D7;
+    --color-gray-darker: #BDBDBD;
+    --color-white: #FFFFFF;
+    --color-white-transparent: #ffffff80;
+    --color-black: #000000;
+    --color-gray-dark: #1E1E1E;
+
+    --font-xxl: 48px;
+    --font-xl: 36px;
+    --font-l: 32px;
+    --font-xm: 20px;
+    --font-m: 16px;
+    --font-s: 14px;
+    --font-xs: 12px;
+    --font-unbounded: Unbounded, sans-serif;
+    --font-montserrat: Montserrat, sans-serif;
+    
+    --border-radius-l: 50px;
+    --border-radius-m: 20px;
+    --border-radius-s: 10px;
+
+    --transition-speed: ease .2s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: var(--color-black);
+    font-size: var(--font-m);
+    font-family: var(--font-montserrat);
+    text-decoration: none;
+    outline: none;
+    border: none;
+    border-radius: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--color-white);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-unbounded);
+    line-height: 120%;
+}
+
+p,
+pre {
+    line-height: 120%;
+}

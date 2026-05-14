@@ -1,0 +1,52 @@
+.sandbox {
+    width: 100%;
+    text-wrap: wrap;
+}
+
+.sandbox h1,
+.sandbox h2,
+.sandbox h3,
+.sandbox h4,
+.sandbox h5,
+.sandbox h6 {
+    text-align: center;
+    font-size: var(--font-l);
+}
+
+.sandbox ul, 
+.sandbox ol {
+    list-style-position: inside;
+}
+
+.sandbox a[href] {
+    position: relative;
+    font-weight: bold;
+    color: var(--color-accent);
+}
+
+.sandbox a[href]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    transition: var(--transition-speed);
+}
+
+.sandbox a[href]:is(:hover, :focus-visible)::before {
+    width: 100%;
+}
+
+.sandbox img {
+    max-width: 100%;
+    margin: 0 auto; display: block;
+    object-fit: cover;
+    border-radius: var(--border-radius-m);
+}
+
+.sandbox img[wide] {
+    width: 100%;
+    max-height: 50vh;
+}

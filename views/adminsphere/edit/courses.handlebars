@@ -1,0 +1,170 @@
+<link rel="stylesheet" href="/css/admin/config.css">
+<link rel="stylesheet" href="/css/admin/template.css">
+<link rel="stylesheet" href="/css/admin/edit/cascad.css">
+<link rel="stylesheet" href="/css/client/components/sandbox.css">
+
+{{>adminnavbar}}
+<main>
+    {{>adminheader}}
+    <h2 class="title">Редактирование информации о курсах и ценах</h2>
+    <div class="panels">
+        <div class="left-side-panels">
+            <div class="panel">
+                <h3 class="panel-title">Преимущества</h3>
+                {{#if cache.Benifits}}
+                <div class="panel-content">
+                    {{#each cache.Benifits}}
+                    <div class="panel-content-item">
+                        <div class="panel-content-item-content">
+                            <p class="panel-content-item-title">{{benifit_title}}</p>
+                            <pre class="panel-content-item-title">{{benifit_description}}</pre>
+                            <img src="/img/uploaded/{{benifit_image}}" wide="true" alt={{benifit_id}}
+                                class="panel-content-item-img">
+                        </div>
+                        <button class="panel-content-item-delete" table="Benifits" item-id={{benifit_id}}
+                            title="Удалить запись">
+                            <img src="/img/icons/Backspace.svg" alt="Удалить" class="panel-content-item-delete-img">
+                        </button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action add-item" table="Benifits" title="Добавить новую запись"
+                        has_file="true">
+                        <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
+                    </button>
+                    {{#if cache.Benifits}}
+                    <button class="panel-action truncate-items" table="Benifits" title="Очистить все записи">
+                        <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="panel">
+                <h3 class="panel-title">Скидки</h3>
+                {{#if cache.Sales}}
+                <div class="panel-content">
+                    {{#each cache.Sales}}
+                    <div class="panel-content-item">
+                        <pre class="panel-pre sandbox">{{{sale_content}}}</pre>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action update-items" table="Sales" item-id="general" sandbox="true"
+                        title="Редактировать запись">
+                        <img src="/img/icons/Code.svg" alt="Add" class="panel-action-img">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="right-side-panels">
+            <div class="panel">
+                <h3 class="panel-title">Курсы</h3>
+                {{#if cache.Courses}}
+                <div class="panel-content">
+                    {{#each cache.Courses}}
+                    <div class="panel-content-item">
+                        <div class="panel-content-item-content">
+                            <p class="panel-content-item-title">{{course_title}}</p>
+                            <pre class="panel-content-item-title">{{course_description}}</pre>
+                            <p class="panel-content-item-title">{{course_color}}</p>
+                            {{#if course_parameters}}
+                            {{#each course_parameters}}
+                            <p class="panel-content-item-title">{{this.[1]}}</p>
+                            {{/each}}
+                            {{else}}
+                            Без параметров
+                            {{/if}}
+                        </div>
+                        <button class="panel-content-item-delete" table="Courses" item-id={{course_id}}
+                            title="Удалить запись">
+                            <img src="/img/icons/Backspace.svg" alt="Удалить" class="panel-content-item-delete-img">
+                        </button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action add-item" table="Courses" title="Добавить новую запись">
+                        <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
+                    </button>
+                    {{#if cache.Courses}}
+                    <button class="panel-action truncate-items" table="Courses" title="Очистить все записи">
+                        <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="panel">
+                <h3 class="panel-title">Цена</h3>
+                {{#if cache.Pricing}}
+                <div class="panel-content">
+                    {{#each cache.Pricing}}
+                    <div class="panel-content-item">
+                        <div class="panel-content-item-content">
+                            <p class="panel-content-item-title">{{pricing_title}}</p>
+                            <p class="panel-content-item-title">{{pricing_subtitle}}</p>
+                            <p class="panel-content-item-title">{{pricing_price}}</p>
+                            {{#if pricing_old_price}}
+                            <p class="panel-content-item-title">{{pricing_old_price}}</p>
+                            {{/if}}
+                            {{#if pricing_note}}
+                            <p class="panel-content-item-title">{{pricing_note}}</p>
+                            {{/if}}
+                            {{#if pricing_parameters}}
+                            {{#each pricing_parameters}}
+                            <p class="panel-content-item-title">{{this.[1]}}</p>
+                            {{/each}}
+                            {{else}}
+                            Без параметров
+                            {{/if}}
+                        </div>
+                        <button class="panel-content-item-delete" table="Pricing" item-id={{pricing_id}}
+                            title="Удалить запись">
+                            <img src="/img/icons/Backspace.svg" alt="Удалить" class="panel-content-item-delete-img">
+                        </button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action add-item" table="Pricing" title="Добавить новую запись">
+                        <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
+                    </button>
+                    {{#if cache.Pricing}}
+                    <button class="panel-action truncate-items" table="Pricing" title="Очистить все записи">
+                        <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <dialog class="editor-dialog" id="editorDialog">
+        <button id="editorClose" class="editor-close"></button>
+        <form id="formEditor" class="editor-form"></form>
+    </dialog>
+
+    <dialog class="editor-dialog sandbox" id="sandboxEditorDialog">
+        <button id="SandboxEditorClose" class="editor-close"></button>
+        <form id="sandboxFormEditor" class="editor-form"></form>
+    </dialog>
+</main>
+
+<script>
+    const cache = {{{ jsonStringify cache }}}
+</script>
+
+<script src="/js/admin/edit/courses.js"></script>

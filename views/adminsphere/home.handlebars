@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="/css/admin/config.css">
+<link rel="stylesheet" href="/css/admin/template.css">
+<link rel="stylesheet" href="/css/admin/home.css">
+
+{{>adminnavbar}}
+<main>
+    {{>adminheader}}
+    <div class="welcome">
+        <h2 class="welcome-title" id="title">Добро пожаловать!</h2>
+        <div class="welcome-container">
+            <a href="https://timeweb.cloud/my/projects/679868" class="panel timeweb" target="_blank"
+                title="Открыть хостинг сервера">
+                <div class="panel-footer">
+                    <img src="/img/icons/TimeWeb.svg" alt="TimeWeb Cloud" class="panel-back-img">
+                    Хостинг сайта
+                    <img src="/img/icons/ExternalLink.svg" alt="Link" class="panel-img">
+                </div>
+            </a>
+            <a href="https://www.reg.ru/user/account/#/" class="panel regru" target="_blank"
+                title="Открыть доменного регистратора">
+                <div class="panel-footer">
+                    <img src="/img/icons/Regru.svg" alt="Regru" class="panel-back-img">
+                    Доменный регистратор
+                    <img src="/img/icons/ExternalLink.svg" alt="Link" class="panel-img">
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="panels">
+        <h2 class="panel-title">Содержимое сайта</h2>
+        <div class="panels-container">
+            <a href="/admin/edit/about" class="panel" title="Изменить общую информацию о компании">
+                О компании
+                <img src="/img/icons/ExternalLink.svg" alt="Link" class="panel-img">
+            </a>
+            <a href="/admin/edit/courses" class="panel" title="Изменить содержимое курсов и стоимости">
+                Курсы и стоимость
+                <img src="/img/icons/ExternalLink.svg" alt="Link" class="panel-img">
+            </a>
+            <a href="/admin/edit/news" class="panel" title="Изменить содержимое новостей">
+                Новости
+                <img src="/img/icons/ExternalLink.svg" alt="Link" class="panel-img">
+            </a>
+        </div>
+    </div>
+</main>
+
+<script src="/js/admin/admin.js"></script>

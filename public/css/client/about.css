@@ -1,0 +1,27 @@
+main {
+    width: 1200px;
+    max-width: 1200px;
+    margin: 0 auto 0 auto;
+    min-height: calc(100svh - 25px - 10px - 60px);
+    height: auto;
+}
+
+.about {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.about-title {
+    font-size: var(--font-xl);
+    text-align: center;
+}
+
+@media (max-width: 1240px) {
+    main {
+        width: calc(100% - 20px * 2);
+        padding: 0 20px 0 20px;
+    }
+}

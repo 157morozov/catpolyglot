@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/css/client/components/header.css">
+
+<header>
+    <a href="/" class="header-brend">
+        {{#if cache.Miscs}}
+        {{#each cache.Miscs}}
+        {{#compare misc_type "===" "Логотип"}}
+        <img src="/img/uploaded/{{misc_content}}" alt="Кот-полиглот">
+        {{/compare}}
+        {{/each}}
+        {{/if}}
+    </a>
+    <input id="headerHumburgerCheckbox" type="checkbox" class="header-hamburger-checkbox" hidden>
+    <label for="headerHumburgerCheckbox" class="header-hamburger-label">
+        <div></div>
+        <div></div>
+        <div></div>
+    </label>
+    <div class="header-links">
+        <a href="/about" class="header-link">О нас</a>
+        <a href="/courses" class="header-link">Курсы</a>
+        <a href="/pricing" class="header-link">Стоимость</a>
+        <a href="/addresses" class="header-link">Филиалы</a>
+        <a href="/news" class="header-link">Новости</a>
+        {{#if cache.GlobalLinks}}
+        {{#each cache.GlobalLinks}}
+        {{#compare gl_type "===" "Оплатить"}}
+        <a href={{gl_link}} target="_blank" class="header-link">Оплатить</a>
+        {{/compare}}
+        {{/each}}
+        {{/if}}
+        {{#if cache.GlobalLinks}}
+        {{#each cache.GlobalLinks}}
+        {{#compare gl_type "===" "Записаться"}}
+        <a href={{gl_link}} target="_blank" class="header-link accent">Записаться</a>
+        {{/compare}}
+        {{/each}}
+        {{/if}}
+    </div>
+</header>

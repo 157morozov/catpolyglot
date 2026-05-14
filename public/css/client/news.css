@@ -1,0 +1,125 @@
+main {
+    width: 1200px;
+    margin: 0 auto 0 auto;
+    min-height: calc(100svh - 25px - 10px - 60px);
+    height: auto;
+}
+
+.news {
+    width: 100%;
+}
+
+.news-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.news-title {
+    font-size: var(--font-xl);
+    text-align: center;
+}
+
+.news-container {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.new {
+    position: relative;
+    overflow: hidden;
+    width: calc(100% / 4 - 23px);
+    height: 350px;
+    border-radius: var(--border-radius-m);
+}
+
+.new-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius-m);
+}
+
+.new-info {
+    width: calc(100% - 10px * 2);
+    padding: 10px 10px 0 10px;
+}
+
+.new-title {
+    overflow: hidden;
+    font-size: var(--font-m);
+    font-family: var(--font-unbounded);
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.new-mini-description {
+    margin-top: 10px;
+    font-size: var(--font-s);
+    text-wrap: wrap;
+    width: 100%;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
+
+.new-open {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    margin-bottom: -1px;
+    color: var(--color-accent);
+    font-size: var(--font-s);
+    border-bottom: 1px solid transparent;
+}
+
+.new-open::before {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 1px;
+    background-color: var(--color-accent);
+    bottom: 0px;
+    left: 0px;
+    transition: var(--transition-speed);
+}
+
+.new-open:is(:hover, :focus-visible)::before {
+    width: 100%;
+}
+
+@media (max-width: 1240px) {
+    main {
+        width: calc(100% - 20px * 2);
+        padding: 0 20px 0 20px;
+    }
+
+    .new {
+        width: calc(100% / 3 - 23px);
+    }
+}
+
+@media (max-width: 1000px) {
+    .new {
+        width: calc(100% / 2 - 23px);
+    }
+}
+
+@media (max-width: 720px) {
+    .new {
+        width: 100%;
+    }
+
+    .news-title {
+        font-size: var(--font-xl);
+    }
+}

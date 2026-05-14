@@ -1,0 +1,26 @@
+main {
+    width: 1200px;
+    margin: 0 auto 0 auto;
+    min-height: calc(100svh - 25px - 10px - 60px);
+    height: auto;
+}
+
+.tax-deduction {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.tax-deduction-title {
+    font-size: var(--font-xl);
+    text-align: center;
+}
+
+@media (max-width: 1280px) {
+    main {
+        width: calc(100% - 20px * 2);
+        padding: 0 20px 0 20px;
+    }
+}

@@ -1,0 +1,38 @@
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+
+<link rel="stylesheet" href="/css/client/addresses.css">
+
+{{>subheader}}
+{{>header}}
+
+<main>
+    <section class="addresses">
+        <h2 class="addresses-title">Карта филиалов</h2>
+        <div id="map" class="addresses-map"></div>
+        <h1 class="addresses-title" id="addresses-list">Адреса филиалов</h1>
+        {{#if cache.Addresses}}
+        <div class="details">
+            {{#each cache.Addresses}}
+            <details class="details-container">
+                <summary class="detais-header">{{address_title}}</summary>
+                <div class="details-content">
+                    <pre class="details-content-description">{{address_description}}</pre>
+                    {{#if address_image}}
+                    <img src="/img/uploaded/{{address_image}}" alt="Изображения для {{address_title}}"
+                        class="details-content-image">
+                    {{/if}}
+                </div>
+            </details>
+            {{/each}}
+        </div>
+        {{/if}}
+    </section>
+</main>
+
+{{>footer}}
+
+<script>
+    const cache = {{{ jsonStringify cache }}}
+</script>
+
+<script src="/js/client/yandexmaps.js"></script>

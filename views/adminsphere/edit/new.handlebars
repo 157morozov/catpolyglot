@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="/css/admin/config.css">
+<link rel="stylesheet" href="/css/admin/template.css">
+<link rel="stylesheet" href="/css/admin/edit/cascad.css">
+<link rel="stylesheet" href="/css/admin/edit/catalogcreate.css">
+<link rel="stylesheet" href="/css/admin/edit/catalogitem.css">
+<link rel="stylesheet" href="/css/client/components/sandbox.css">
+
+{{>adminnavbar}}
+<main>
+    {{>adminheader}}
+    <h2 class="title">Изменить новость № {{id}}</h2>
+    {{#if cache.News}}
+    {{#each cache.News}}
+    {{#compare new_id "==" ../id}}
+    <form action="/admin/edit/table/News/update/{{../id}}" method="post" enctype="multipart/form-data" class="panels">
+        <div class="left-side-panels">
+            <div class="create-area">
+                <h5 class="create-area-title">Основная информация</h5>
+                <input value="{{new_title}}" type="text" name="new_title" placeholder="Заголовок" class="create-input"
+                    required>
+                <div class="product-multiple-values is-featured">
+                    <label for="inputProductIsInSlider">В слайдер главной страницы:</label>
+                    <input id="inputProductIsInSlider" type="checkbox" name="new_is_in_slider" {{#compare
+                        new_is_in_slider "==" "1" }}checked{{/compare}}>
+                </div>
+            </div>
+            <div class="create-area">
+                {{#if new_image}}
+                <h5 class="create-area-title">Изображение</h5>
+                <img src="/img/uploaded/{{new_image}}" alt="Изображение для новости {{id}}"
+                    class="create-input-file-preview-img single">
+                {{/if}}
+                <h5 class="create-area-title">Загрузить новое изображение</h5>
+                <input type="file" name="new_image" id="inputProductPhotos" class="create-input-file" accept="image/*">
+                <label for="inputProductPhotos" class="create-input-file-label">
+                    <img src="/img/icons/Download.svg" alt="Загрузить" class="create-input-file-img"> Выберите файл
+                </label>
+                <div id="containerPhotosPreview" class="create-input-file-preview"></div>
+            </div>
+        </div>
+        <div class="right-side-panels">
+            <div class="panel">
+                <h3 class="panel-title">Содержание новости</h3>
+                {{#if new_description}}
+                <textarea id="inputDescription" name="new_description" hidden></textarea>
+                <div class="panel-content">
+                    <div class="panel-content-item">
+                        <pre id="preDescription" class="panel-pre sandbox">{{{new_description}}}</pre>
+                    </div>
+                </div>
+                <p id="pDescriptionEmpty" class="panel-error hidden">Содержание пустое</p>
+                <div class="panel-actions">
+                    <button class="panel-action update-items" type="button" table="Description" item-id="general"
+                        sandbox="true" title="Редактировать запись">
+                        <img src="/img/icons/Code.svg" alt="Add" class="panel-action-img">
+                    </button>
+                </div>
+                {{else}}
+                <textarea id="inputDescription" name="new_description" hidden></textarea>
+                <div class="panel-content hidden">
+                    <div class="panel-content-item">
+                        <pre id="preDescription" class="panel-pre sandbox"></pre>
+                    </div>
+                </div>
+                <p id="pDescriptionEmpty" class="panel-error">Содержание пустое</p>
+                <div class="panel-actions">
+                    <button class="panel-action update-items" type="button" table="Description" item-id="general"
+                        sandbox="true" title="Редактировать запись">
+                        <img src="/img/icons/Code.svg" alt="Add" class="panel-action-img">
+                    </button>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        <button type="submit" class="create-button" title="Обновить новость">
+            <img src="/img/icons/CloudUpload.svg" alt="Обновить новость" class="create-button-img">
+        </button>
+    </form>
+    {{/compare}}
+    {{/each}}
+    {{else}}
+    <p class="catalog-empty">У Вас еще не добавлено ни одной новости</p>
+    {{/if}}
+
+    <dialog class="editor-dialog" id="editorDialog">
+        <button id="editorClose" class="editor-close"></button>
+        <form id="formEditor" class="editor-form"></form>
+    </dialog>
+
+    <dialog class="editor-dialog sandbox" id="sandboxEditorDialog">
+        <button id="SandboxEditorClose" class="editor-close"></button>
+        <form id="sandboxFormEditor" class="editor-form"></form>
+    </dialog>
+
+    <button id="buttonEditorOpenForDelete" type="button" class="product-button delete" title="Удалить новость">
+        <img src="/img/icons/ClipboardRemove.svg" alt="Удалить новость" class="product-button-img">
+    </button>
+
+    <dialog class="editor-dialog" id="editorDialogForDelete">
+        <button id="buttonEditorCloseForDelete" class="editor-close"></button>
+        <form action="/admin/edit/table/News/delete/{{id}}" method="post" class="editor-form">
+            <h3>Удалить новость</h3>
+            <button id="buttonEditorCloseForDeleteInEditor" type="button" style="margin-bottom: 0;">Отменить</button>
+            <button type="submit" class="destroy">Удалить</button>
+        </form>
+    </dialog>
+</main>
+
+<script>
+    const cache = {{{ jsonStringify cache }}}
+</script>
+
+<script src="/js/admin/edit/newcreate.js"></script>

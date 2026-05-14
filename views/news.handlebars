@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/client/news.css">
+
+{{>subheader}}
+{{>header}}
+
+<main>
+    <section class="news">
+        <h1 class="news-title">Новости</h1>
+        <div class="news-container">
+            {{#if cache.News}}
+            {{#each cache.News}}
+            <div class="new">
+                <img src="/img/uploaded/{{new_image}}" alt="Фотография для новости {{new_id}}" class="new-image">
+                <div class="new-info">
+                    <p class="new-title">{{new_title}}</h4>
+                    <pre class="new-mini-description">{{stripTags new_description}}</pre>
+                </div>
+                <a href="/news/{{new_id}}" class="new-open">Читать далее »</a>
+            </div>
+            {{/each}}
+            {{/if}}
+        </div>
+    </section>
+</main>
+
+{{>footer}}

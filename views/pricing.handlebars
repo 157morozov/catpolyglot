@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="/css/client/pricing.css">
+<link rel="stylesheet" href="/css/client/components/sandbox.css">
+
+{{>subheader}}
+{{>header}}
+
+<main>
+    <section class="pricing">
+        <h1 class="pricing-title">Стоимость обучения</h1>
+        {{#if cache.PricingGrouped}}
+        {{#each cache.PricingGrouped}}
+        <div class="pricing-course">
+            <h2 class="pricing-course-title">{{pricing_title}}</h2>
+            <ul class="pricing-course-price-list">
+                {{#each details}}
+                <li class="pricing-course-price">
+                    <h3 class="pricing-course-price-title">{{pricing_subtitle}}</h3>
+                    <div class="pricing-course-price-container">
+                        <p class="pricing-course-price-per-lesson">{{pricing_price}} ₽</p>
+                        {{#if pricing_old_price}}
+                        <p class="pricing-course-price-per-lesson-old">{{pricing_old_price}} ₽</p>
+                        {{/if}}
+                    </div>
+                    <div class="pricing-course-price-misc">
+                        {{#each pricing_parameters}}
+                        <p class="pricing-course-price-misc-info">{{this.[1]}}</p>
+                        {{/each}}
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/each}}
+        {{/if}}
+    </section>
+    <section class="sales">
+        <h2 class="sales-title">Скидки</h2>
+        <pre class="sandbox">{{#if cache.Sales}}{{#each cache.Sales}}{{{sale_content}}}{{/each}}{{/if}}</pre>
+    </section>
+
+    <a href="https://disk.yandex.ru/d/9nHLlRwljHerfQ" target="_blank" class="offer-link">Договор оферты</a>
+
+    {{>needhelp}}
+
+</main>
+
+{{>footer}}

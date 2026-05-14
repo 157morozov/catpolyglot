@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="/css/admin/config.css">
+<link rel="stylesheet" href="/css/admin/template.css">
+<link rel="stylesheet" href="/css/admin/edit/cascad.css">
+<link rel="stylesheet" href="/css/admin/edit/catalogcreate.css">
+<link rel="stylesheet" href="/css/client/components/sandbox.css">
+
+{{>adminnavbar}}
+<main>
+    {{>adminheader}}
+    <h2 class="title">Добавить новость</h2>
+    <form action="/admin/edit/table/News/insert" method="post" enctype="multipart/form-data" class="panels">
+        <div class="left-side-panels">
+            <div class="create-area">
+                <h5 class="create-area-title">Основная информация</h5>
+                <input type="text" name="new_title" placeholder="Заголовок" class="create-input" required>
+                <div class="create-multiple-values is-featured">
+                    <label for="inputProductIsInSlider">В слайдер главной страницы:</label>
+                    <input id="inputProductIsInSlider" type="checkbox" name="new_is_in_slider">
+                </div>
+            </div>
+            <div class="create-area">
+                <h5 class="create-area-title">Изображение</h5>
+                <input type="file" name="new_image" id="inputProductPhotos" class="create-input-file" accept="image/*"
+                    required>
+                <label for="inputProductPhotos" class="create-input-file-label">
+                    <img src="/img/icons/Download.svg" alt="Загрузить" class="create-input-file-img"> Выберите файл
+                </label>
+                <div id="containerPhotosPreview" class="create-input-file-preview"></div>
+            </div>
+        </div>
+        <div class="right-side-panels">
+            <div class="panel">
+                <h3 class="panel-title">Содержание новости</h3>
+                <textarea id="inputDescription" name="new_description" hidden></textarea>
+                <div class="panel-content hidden">
+                    <div class="panel-content-item">
+                        <pre id="preDescription" class="panel-pre sandbox"></pre>
+                    </div>
+                </div>
+                <p id="pDescriptionEmpty" class="panel-error">Содержание пустое</p>
+                <div class="panel-actions">
+                    <button class="panel-action update-items" type="button" table="Description" item-id="general" sandbox="true"
+                        title="Редактировать запись">
+                        <img src="/img/icons/Code.svg" alt="Add" class="panel-action-img">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="create-button" title="Добавить новость">
+            <img src="/img/icons/CloudUpload.svg" alt="Добавить новость" class="create-button-img">
+        </button>
+    </form>
+
+    <dialog class="editor-dialog" id="editorDialog">
+        <button id="editorClose" class="editor-close"></button>
+        <form id="formEditor" class="editor-form"></form>
+    </dialog>
+
+    <dialog class="editor-dialog sandbox" id="sandboxEditorDialog">
+        <button id="SandboxEditorClose" class="editor-close"></button>
+        <form id="sandboxFormEditor" class="editor-form"></form>
+    </dialog>
+</main>
+
+<script>
+    const cache = {{{ jsonStringify cache }}}
+</script>
+
+<script src="/js/admin/edit/newcreate.js"></script>

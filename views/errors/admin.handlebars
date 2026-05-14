@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="/css/admin/config.css">
+<link rel="stylesheet" href="/css/admin/template.css">
+<link rel="stylesheet" href="/css/admin/error.css">
+
+{{>adminnavbar}}
+<main>
+    {{>adminheader}}
+    <div class="error">
+        <h1 class="error-title">Произошла ошибка</h1>
+        <p class="error-text">{{error}}</p>
+        <a href="/admin" class="error-tohome">Вернуться</a>
+    </div>
+</main>

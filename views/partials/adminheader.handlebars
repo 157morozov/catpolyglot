@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/css/admin/header.css">
+
+<header>
+    <div class="inverted-rounded"></div>
+
+    <a class="header-link menu" id="menu" title="Открыть меню">
+        <img src="/img/icons/Menu.svg" alt="Menu" class="header-img">
+    </a>
+
+    <form class="header-logout" action="/admin/logout" method="post">
+        <button class="header-logout-submit" type="submit" title="Выйти из аккаунта">
+            <img class="header-img" src="/img/icons/Exit.svg" alt="Exit">
+        </button>
+    </form>
+
+    <a class="header-link" title="Личный кабинет">
+        <img class="header-img" src="/img/icons/User.svg" alt="User">
+        <b class="header-link-content">{{ admin_login }}</b>
+    </a>
+</header>
+
+<script src="/js/admin/header.js"></script>

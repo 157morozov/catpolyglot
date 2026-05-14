@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/css/client/tax-deduction.css">
+<link rel="stylesheet" href="/css/client/components/sandbox.css">
+
+{{>subheader}}
+{{>header}}
+
+<main>
+    <section class="tax-deduction">
+        <h1 class="tax-deduction-title">Налоговый вычет</h1>
+        <pre
+            class="sandbox">{{#if cache.TaxDeduction}}{{#each cache.TaxDeduction}}{{{td_content}}}{{/each}}{{/if}}</pre>
+    </section>
+</main>
+
+{{>footer}}

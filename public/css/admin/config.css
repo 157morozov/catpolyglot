@@ -1,0 +1,106 @@
+
+
+@font-face {
+    font-family: RobotRegular;
+    src: url("/font/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: RobotoBold;
+    src: url("/font/Roboto-Bold.ttf");
+}
+
+:root {
+    --admin-const-black: #000000;
+    --admin-const-white: #FFFFFF;
+    --admin-color-black: #302c2c;
+    --admin-color-white: #f6f6f6;
+    --admin-color-black-focus: #252222;
+    --admin-color-black-active: #000000;
+    --admin-color-gray: #464646;
+    --admin-color-gray-light: #eeeeee;
+    --admin-color-gray-semi: #757575;
+    --admin-color-blue: #5094fc;
+    --admin-color-blue-focus: #4683de;
+    --admin-color-blue-active: #3c6fbd;
+    --admin-color-red: red;
+    --admin-color-red-focus: rgb(234, 0, 0);
+    --admin-color-red-active: rgb(215, 0, 0);
+
+    --admin-color-timeweb: #454cee;
+    --admin-color-timeweb-focus: #3b40d0;
+    --admin-color-timeweb-active: #353abc;
+    --admin-color-regru: #3755fa;
+    --admin-color-regru-focus: #233cc8;
+    --admin-color-regru-active: #1f34af;
+
+    --admin-font-size-xxl: 28px;
+    --admin-font-size-xl: 24px;
+    --admin-font-size-l: 20px;
+    --admin-font-size-m: 16px;
+    --admin-font-size-s: 14px;
+    --admin-font-size-xs: 10px;
+    --admin-font-family-regular: RobotRegular, sans-serif;
+    --admin-font-family-bold: RobotoBold, sans-serif;
+
+    --admin-border-radius-l: 20px;
+    --admin-border-radius-m: 10px;
+    --admin-border-radius-s: 5px;
+
+    --admin-size-width-navbar: 250px;
+    --admin-size-height-header: 70px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: var(--admin-color-black);
+    outline: none;
+    border: none;
+    font-family: var(--admin-font-family-regular);
+    font-size: var(--admin-font-size-m);
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--admin-const-white);
+}
+
+body {
+    min-width: 100vw;
+    min-height: 100vh;
+    min-width: 100dvw;
+    min-height: 100dvh;
+}
+
+h1,
+h2,
+h3 {
+    font-size: var(--admin-font-size-xl);
+    font-family: var(--admin-font-family-bold);
+}
+
+h4,
+h5,
+h6 {
+    font-size: var(--admin-font-size-l);
+    font-family: var(--admin-font-family-bold);
+}
+
+a,
+p,
+b {
+    font-size: var(--admin-font-size-m);
+}
+
+a {
+    text-decoration: none;
+}
+
+b {
+    font-family: var(--admin-font-family-bold);
+}
+
+label {
+    font-size: var(--admin-font-size-s);
+}

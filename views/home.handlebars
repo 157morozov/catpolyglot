@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="/css/client/home.css">
+
+{{>subheader}}
+{{>header}}
+
+<main>
+    <section class="start">
+        <div class="start-left">
+            {{#if cache.Home}}
+            {{#each cache.Home}}
+            {{#compare home_type "===" "Заголовок"}}
+            <h1 class="start-title">{{home_content}}</h1>
+            {{/compare}}
+            {{#compare home_type "===" "Содержание"}}
+            <pre class="start-description">{{home_content}}</pre>
+            {{/compare}}
+            {{/each}}
+            {{/if}}
+            <div class="start-links">
+                <a href="/about" class="start-link">О нас</a>
+                {{#if cache.GlobalLinks}}
+                {{#each cache.GlobalLinks}}
+                {{#compare gl_type "===" "Записаться"}}
+                <a href={{gl_link}} target="_blank" class="start-link accent">Записаться</a>
+                {{/compare}}
+                {{/each}}
+                {{/if}}
+                {{#if cache.GlobalLinks}}
+                {{#each cache.GlobalLinks}}
+                {{#compare gl_type "===" "Оплатить"}}
+                <a href={{gl_link}} target="_blank" class="start-link">Оплатить</a>
+                {{/compare}}
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+        <div class="start-right">
+            {{#if cache.Miscs}}
+            {{#each cache.Miscs}}
+            {{#compare misc_type "===" "Баннер"}}
+            <img src="/img/uploaded/{{misc_content}}" alt="Баннер стартовой страницы" class="start-right-image">
+            {{/compare}}
+            {{/each}}
+            {{/if}}
+        </div>
+    </section>
+    {{#if cache.SliderBanners}}
+    <section class="slider">
+        <div class="slider-controls">
+            {{#each cache.SliderBannersLength}}
+            {{#if @first}}
+            <button class="slider-change-slide active" title="Переключить слайд" data-slide-id="{{this}}"></button>
+            {{else}}
+            <button class="slider-change-slide" title="Переключить слайд" data-slide-id="{{this}}"></button>
+            {{/if}}
+            {{/each}}
+        </div>
+        <div id="slides" class="slides">
+            {{#each cache.SliderBanners}}
+            <div class="slide">
+                <img src="/img/uploaded/{{new_image}}" alt="Фотография для сайда {{new_id}}" class="slide-image">
+                <a href="/news/{{new_id}}" class="slide-button">Подробнее</a>
+            </div>
+            {{/each}}
+        </div>
+    </section>
+    {{/if}}
+    <section class="news">
+        <div class="news-header">
+            <h2 class="news-title">Новости</h2>
+            <a href="/news" class="news-link-all">Посмотреть все</a>
+        </div>
+        <div class="news-container">
+            {{#if cache.NewsSliced}}
+            {{#each cache.NewsSliced}}
+            <div class="new">
+                <img src="/img/uploaded/{{new_image}}" alt="Фотография для новости {{new_id}}" class="new-image">
+                <div class="new-info">
+                    <p class="new-title">{{new_title}}</h4>
+                    <pre class="new-mini-description">{{stripTags new_description}}</pre>
+                </div>
+                <a href="/news/{{new_id}}" class="new-open">Читать далее »</a>
+            </div>
+            {{/each}}
+            {{/if}}
+        </div>
+    </section>
+</main>
+
+{{>footer}}
+
+<script src="/js/client/home.js"></script>

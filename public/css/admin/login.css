@@ -1,0 +1,191 @@
+@import url(./config.css);
+
+.login {
+    width: 100vw;
+    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+}
+
+.login-content,
+.login-picture {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-content {
+    overflow: auto;
+}
+
+.login-form {
+    padding: 0 20px 0 20px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.login-input {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: var(--admin-font-size-m);
+    font-family: var(--admin-font-family-bold);
+    border-bottom: 1px solid var(--admin-color-gray);
+    transition: .2s;
+}
+
+.login-input.error {
+    border-color: var(--admin-color-red);
+}
+
+.login-input:focus {
+    border-color: var(--admin-const-black);
+}
+
+.login-label {
+    padding-left: 10px;
+    margin-top: 30px;
+    transform: translateY(34px);
+    color: var(--admin-color-gray);
+    font-size: var(--admin-font-size-m);
+    transition: .2s;
+    cursor: text;
+}
+
+#login:focus~#login-label,
+#login:valid~#login-label {
+    transform: translateY(0);
+    color: var(--admin-const-black);
+}
+
+#password:focus~#password-label,
+#password:valid~#password-label {
+    transform: translateY(0);
+    color: var(--admin-const-black);
+}
+
+.login-error {
+    overflow: hidden;
+    height: 20px;
+    margin-top: 10px;
+    animation: errorShow .2s;
+    color: var(--admin-color-red);
+    text-align: center;
+    font-size: var(--admin-font-size-s);
+    font-family: var(--admin-font-family-bold);
+}
+
+.login-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-return {
+    margin-top: 30px;
+    color: var(--admin-color-gray);
+    transition: .2s;
+}
+
+.login-return:is(:hover, :focus) {
+    color: var(--admin-const-black);
+}
+
+.login-submit {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    color: var(--admin-const-white);
+    background-color: var(--admin-color-blue);
+    border-radius: var(--admin-border-radius-m);
+    font-size: var(--admin-font-size-m);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.login-submit:is(:hover, :focus) {
+    background-color: var(--admin-color-blue-focus);
+}
+
+.login-submit:active {
+    background-color: var(--admin-color-blue-active);
+}
+
+.login-picture {
+    background-color: var(--admin-color-blue);
+}
+
+.login-picture-img {
+    width: 70%;
+    height: auto;
+    -webkit-user-drag: none;
+}
+
+@media (max-width: 880px) {
+    .login-form {
+        width: calc(100% - 20px * 2);
+    }
+}
+
+@media (max-width: 600px) {
+    .login-content {
+        width: 100%;
+    }
+
+    .login-picture {
+        display: none;
+    }
+
+    .login-return {
+        padding: 10px;
+        width: calc(100% - 10px * 2);
+        color: var(--admin-const-white);
+        background-color: var(--admin-color-black);
+        border-radius: var(--admin-border-radius-m);
+        text-align: center;
+        font-size: var(--admin-font-size-m);
+    }
+
+    .login-return:is(:hover, :focus) {
+        color: var(--admin-const-white);
+        background-color: var(--admin-color-black-focus);
+    }
+
+    .login-return:active {
+        background-color: var(--admin-color-black-active);
+    }
+
+    .login-form {
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .login-title {
+        margin-top: 20px;
+    }
+
+    .login-actions {
+        margin-bottom: 20px;
+    }
+}
+
+@keyframes errorShow {
+    from {
+        height: 0px;
+    }
+    to {
+        height: 20px;
+    }
+}

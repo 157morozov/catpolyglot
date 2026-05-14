@@ -1,0 +1,196 @@
+<link rel="stylesheet" href="/css/admin/config.css">
+<link rel="stylesheet" href="/css/admin/template.css">
+<link rel="stylesheet" href="/css/admin/edit/cascad.css">
+<link rel="stylesheet" href="/css/client/components/sandbox.css">
+
+{{>adminnavbar}}
+<main>
+    {{>adminheader}}
+    <h2 class="title">Редактирование информации о компании</h2>
+    <div class="panels">
+        <div class="left-side-panels">
+            <div class="panel">
+                <h3 class="panel-title">Главная страница</h3>
+                {{#if cache.Home}}
+                <div class="panel-content">
+                    {{#each cache.Home}}
+                    <div class="panel-content-item">
+                        <pre class="panel-pre">{{home_content}}</pre>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                {{#if cache.Miscs}}
+                {{#each cache.Miscs}}
+                {{#compare misc_type "===" "Баннер"}}
+                <div class="panel-content-item">
+                    <img src="/img/uploaded/{{misc_content}}" wide="true" alt="Баннер главной страницы"
+                        class="panel-content-item-img">
+                </div>
+                {{/compare}}
+                {{/each}}
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action update-items" table="Home" item-id="general" has_file="true"
+                        title="Редактировать запись">
+                        <img src="/img/icons/Document.svg" alt="Add" class="panel-action-img">
+                    </button>
+                </div>
+            </div>
+            <div class="panel">
+                <h3 class="panel-title">О нас</h3>
+                {{#if cache.About}}
+                <div class="panel-content">
+                    {{#each cache.About}}
+                    <div class="panel-content-item">
+                        <pre class="panel-pre sandbox">{{{about_content}}}</pre>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action update-items" table="About" item-id="general" sandbox="true"
+                        title="Редактировать запись">
+                        <img src="/img/icons/Code.svg" alt="Add" class="panel-action-img">
+                    </button>
+                </div>
+            </div>
+            <div class="panel">
+                <h3 class="panel-title">Адреса филиалов</h3>
+                {{#if cache.Addresses}}
+                <div class="panel-content">
+                    {{#each cache.Addresses}}
+                    <div class="panel-content-item">
+                        <div class="panel-content-item-content">
+                            <p class="panel-content-item-title">{{address_title}}</p>
+                            <pre class="panel-content-item-title">{{address_description}}</pre>
+                            <p class="panel-content-item-title">{{address_coords}}</p>
+                            {{#if address_image}}
+                            <img src="/img/uploaded/{{address_image}}" wide="true" alt={{address_id}}
+                                class="panel-content-item-img">
+                            {{/if}}
+                        </div>
+                        <button class="panel-content-item-delete" table="Addresses" item-id={{address_id}}
+                            title="Удалить запись">
+                            <img src="/img/icons/Backspace.svg" alt="Удалить" class="panel-content-item-delete-img">
+                        </button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action add-item" table="Addresses" title="Добавить новую запись"
+                        has_file="true">
+                        <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
+                    </button>
+                    {{#if cache.Addresses}}
+                    <button class="panel-action truncate-items" table="Addresses" title="Очистить все записи">
+                        <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="right-side-panels">
+            <div class="panel">
+                <h3 class="panel-title">Глобальные ссылки</h3>
+                {{#if cache.GlobalLinks}}
+                <div class="panel-content">
+                    {{#each cache.GlobalLinks}}
+                    <div class="panel-content-item">
+                        <p class="panel-content-item-title">{{gl_type}}</p>
+                        <a href={{gl_link}} target="_blank" class="panel-content-item-title-signature link">(Ссылка)</a>
+                        <button class="panel-content-item-delete" table="GlobalLinks" item-id={{gl_type}}
+                            title="Удалить запись">
+                            <img src="/img/icons/Backspace.svg" alt="Удалить" class="panel-content-item-delete-img">
+                        </button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action add-item" table="GlobalLinks" title="Добавить новую запись">
+                        <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
+                    </button>
+                    {{#if cache.GlobalLinks}}
+                    <button class="panel-action truncate-items" table="GlobalLinks" title="Очистить все записи">
+                        <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="panel">
+                <h3 class="panel-title">Контакты</h3>
+                {{#if cache.Contacts}}
+                <div class="panel-content">
+                    {{#each cache.Contacts}}
+                    <div class="panel-content-item">
+                        <p class="panel-content-item-title">{{contact_type}}: {{contact_content}}</p>
+                        <button class="panel-content-item-delete" table="Contacts" item-id={{contact_type}}
+                            title="Удалить запись">
+                            <img src="/img/icons/Backspace.svg" alt="Удалить" class="panel-content-item-delete-img">
+                        </button>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action add-item" table="Contacts" title="Добавить новую запись">
+                        <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
+                    </button>
+                    {{#if cache.Contacts}}
+                    <button class="panel-action truncate-items" table="Contacts" title="Очистить все записи">
+                        <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="panel">
+                <h3 class="panel-title">Налоговый вычет</h3>
+                {{#if cache.TaxDeduction}}
+                <div class="panel-content">
+                    {{#each cache.TaxDeduction}}
+                    <div class="panel-content-item">
+                        <pre class="panel-pre sandbox">{{{td_content}}}</pre>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="panel-error">Таблица пустая</p>
+                {{/if}}
+                <div class="panel-actions">
+                    <button class="panel-action update-items" table="TaxDeduction" item-id="general" sandbox="true"
+                        title="Редактировать запись">
+                        <img src="/img/icons/Code.svg" alt="Add" class="panel-action-img">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <dialog class="editor-dialog" id="editorDialog">
+        <button id="editorClose" class="editor-close"></button>
+        <form id="formEditor" class="editor-form"></form>
+    </dialog>
+
+    <dialog class="editor-dialog sandbox" id="sandboxEditorDialog">
+        <button id="SandboxEditorClose" class="editor-close"></button>
+        <form id="sandboxFormEditor" class="editor-form"></form>
+    </dialog>
+</main>
+
+<script>
+    const cache = {{{ jsonStringify cache }}}
+</script>
+
+<script src="/js/admin/edit/about.js"></script>

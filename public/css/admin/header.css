@@ -1,0 +1,95 @@
+header {
+    position: relative;
+    padding: 0 20px 0 20px;
+    width: calc(100% - 20px * 2);
+    height: var(--admin-size-height-header);
+    min-height: var(--admin-size-height-header);
+    background-color: var(--admin-const-white);
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+/* Rounded corner */
+.inverted-rounded {
+    position: absolute;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    bottom: 0;
+    left: 0;
+}
+
+.inverted-rounded:before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at right bottom, transparent 20px, var(--admin-const-white) 20px);
+    top: 20px;
+    left: 0px;
+}
+
+/* Links */
+.header-link {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    transition: .2s;
+}
+
+.header-link.menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+}
+
+.header-link:is(:hover, :focus) {
+    transform: scale(1.1);
+}
+
+.header-img {
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+}
+
+.header-link-content {
+    margin-left: 3px;
+}
+
+/* Logout form */
+.header-logout,
+.header-logout-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-logout-submit {
+    background-color: transparent;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.header-logout-submit:is(:hover, :focus) {
+    transform: scale(1.1);
+}
+
+/* Adaptive */
+
+@media (max-width: 800px) {
+    .inverted-rounded {
+        display: none;
+    }
+
+    .header-link.menu {
+        display: flex;
+        z-index: 21;
+    }
+
+    .header-logout {
+        display: none;
+    }
+}

@@ -1,0 +1,218 @@
+main {
+    width: 1200px;
+    margin: 0 auto 0 auto;
+    min-height: calc(100svh - 25px - 10px - 60px);
+    height: auto;
+}
+
+.benifits {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.benifits-title,
+.benifits-title-highlight {
+    text-align: center;
+    font-size: var(--font-l);
+}
+
+.benifits-title-highlight {
+    color: var(--color-accent);
+}
+
+.benifits-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.benifit {
+    width: calc(50% - 15px - 20px * 2);
+    min-height: 160px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-gray-light);
+    border-radius: var(--border-radius-m);
+}
+
+.benifit-info {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.benifit-title {
+    font-size: var(--font-xm);
+}
+
+.benifit-description {
+    text-wrap: wrap;
+}
+
+.benifit-image {
+    width: 15%;
+    height: 70%;
+    object-fit: contain;
+}
+
+.courses {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.courses-title {
+    font-size: var(--font-l);
+    text-align: center;
+}
+
+.courses-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.course {
+    width: calc(50% - 15px - 20px * 2);
+    min-height: 160px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--color-gray-light);
+    border-radius: var(--border-radius-m);
+}
+
+.course-parameters {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.course-agelimit,
+.course-duration,
+.course-lexicon,
+.course-skills,
+.course-parameter {
+    min-height: 20px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--color-white);
+    font-weight: bold;
+    font-size: var(--font-s);
+    border: 2px solid var(--color-white);
+    border-radius: var(--border-radius-s);
+}
+
+.course-parameters-image {
+    height: 16px;
+    width: 16px;
+    object-fit: contain;
+}
+
+.course-title {
+    margin: 10px 0 10px 0;
+    color: var(--color-white);
+    font-size: var(--font-xm);
+}
+
+.course-description {
+    margin: 0 0 10px 0;
+    color: var(--color-white);
+    text-wrap: wrap;
+}
+
+.course-link {
+    width: fit-content;
+    margin: auto 0 0 0;
+    padding: 10px 20px 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-unbounded);
+    font-size: var(--font-s);
+    font-weight: bold;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-s);
+    transition: var(--transition-speed);
+}
+
+.course-link:is(:hover, :focus-visible) {
+    background-color: var(--color-gray-light);
+}
+
+.course-link:is(:active) {
+    background-color: var(--color-gray);
+}
+
+.courses-signup-link {
+    width: fit-content;
+    height: 40px;
+    margin: 30px auto 0 auto;
+    padding: 0 20px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-unbounded);
+    font-size: var(--font-s);
+    font-weight: bold;
+    border-radius: var(--border-radius-m);
+    color: var(--color-white);
+    background-color: var(--color-accent);
+    transition: var(--transition-speed);
+}   
+
+.courses-signup-link:is(:hover, :focus-visible) {
+    background-color: var(--color-accent-focus);
+}
+
+.courses-signup-link:is(:active) {
+    background-color: var(--color-accent-active);
+}
+
+@media (max-width: 1240px) {
+    main {
+        width: calc(100% - 20px * 2);
+        padding: 0 20px 0 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    .benifit,
+    .course {
+        width: 100%;
+    }
+}
+
+@media (max-width: 550px) {
+    .benifit {
+        flex-direction: column-reverse;
+    }
+
+    .benifit-info {
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .benifit-title {
+        text-align: center;
+    }
+
+    .benifit-image {
+        width: 70%;
+        max-height: 200px;
+    }
+}

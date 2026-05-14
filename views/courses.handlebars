@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="/css/client/courses.css">
+
+{{>subheader}}
+{{>header}}
+
+<main>
+    <section class="benifits">
+        <h2 class="benifits-title">Преимущества обучения в школе <span
+                class="benifits-title-highlight">Кот-Полиглот</span></h2>
+        <div class="benifits-container">
+            {{#if cache.Benifits}}
+            {{#each cache.Benifits}}
+            <div class="benifit">
+                <div class="benifit-info">
+                    <h3 class="benifit-title">{{benifit_title}}</h3>
+                    <pre class="benifit-description">{{benifit_description}}</pre>
+                </div>
+                <img src="/img/uploaded/{{benifit_image}}" alt="Фотография для преимущества {{benifit_id}}"
+                    class="benifit-image">
+            </div>
+            {{/each}}
+            {{/if}}
+        </div>
+    </section>
+    <section class="courses">
+        <h1 class="courses-title">Обучающие программы и курсы</h1>
+        <div class="courses-container">
+            {{#if cache.Courses}}
+            {{#each cache.Courses}}
+            <div class="course" style="background-color: {{course_color}};">
+                {{#if course_parameters}}
+                <div class="course-parameters">
+                    {{#each course_parameters}}
+                    {{#compare this.[0] "===" "agelimit"}}
+                    <div class="course-agelimit">
+                        <img src="/img/icons/Profile.svg" alt="Иконка для возрастного ограничения"
+                            class="course-parameters-image">
+                        {{this.[1]}}
+                    </div>
+                    {{/compare}}
+                    {{#compare this.[0] "===" "duration"}}
+                    <div class="course-duration">
+                        <img src="/img/icons/Alarm.svg" alt="Иконка для продолжительности"
+                            class="course-parameters-image">
+                        {{this.[1]}}
+                    </div>
+                    {{/compare}}
+                    {{#compare this.[0] "===" "parameter"}}
+                    <div class="course-parameter">{{this.[1]}}</div>
+                    {{/compare}}
+                    {{/each}}
+                </div>
+                {{/if}}
+                <h3 class="course-title">{{course_title}}</h3>
+                <pre class="course-description">{{course_description}}</pre>
+                <a href="/pricing" class="course-link">Узнать стоимость</a>
+            </div>
+            {{/each}}
+            {{/if}}
+        </div>
+    </section>
+    {{#if cache.GlobalLinks}}
+    {{#each cache.GlobalLinks}}
+    {{#compare gl_type "===" "Записаться"}}
+    <a class="courses-signup-link" target="_blank" href="{{gl_link}}">Записаться</a>
+    {{/compare}}
+    {{/each}}
+    {{/if}}
+
+    {{>needhelp}}
+
+</main>
+
+{{>footer}}

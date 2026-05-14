@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/css/admin/login.css">
+
+<main class="login">
+    <span class="login-content">
+        <form action="/admin/auth" method="post" class="login-form">
+            <h1 class="login-title">Авторизация</h1>
+            <div class="login-inputs">
+                {{#if general_error}}
+                <p class="login-error">{{general_error}}</p>
+                {{/if}}
+                {{#if password_error}}
+                <p class="login-error">{{password_error}}</p>
+                {{/if}}
+                <input tabindex="2" name="password" id="password" type="password" class="login-input {{#if password_error}}error{{/if}} {{#if general_error}}error{{/if}}" required>
+                <label id="password-label" for="password" class="login-label">Пароль</label>
+                {{#if login_error}}
+                <p class="login-error">{{login_error}}</p>
+                {{/if}}
+                <input tabindex="1" name="login" id="login" autocomplete="username" type="text" class="login-input {{#if login_error}}error{{/if}} {{#if general_error}}error{{/if}}" required>
+                <label id="login-label" for="login" class="login-label">Логин</label>
+            </div>
+            <div class="login-actions">
+                <a href="/" class="login-return">Вернуться</a>
+                <button type="submit" class="login-submit">Продолжить</button>
+            </div>
+        </form>
+    </span>
+    <picture class="login-picture">
+        <source media="(max-width: 1000px)" srcset="/img/misc/AnalysisReportSignSymbol500x500.png">
+        <source media="(max-width: 2000px)" srcset="/img/misc/AnalysisReportSignSymbol1000x1000.png">
+        <img src="/img/misc/AnalysisReportSignSymbol1500x1500.png" alt="AnalysisReportSignSymbol" class="login-picture-img">
+    </picture>
+</main>

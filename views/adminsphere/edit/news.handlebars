@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="/css/admin/config.css">
+<link rel="stylesheet" href="/css/admin/template.css">
+<link rel="stylesheet" href="/css/admin/edit/catalog.css">
+
+{{>adminnavbar}}
+<main>
+    {{>adminheader}}
+    <h2 class="title">Новости</h2>
+    <div class="catalog">
+        {{#if cache.News}}
+        {{#each cache.News}}
+        <a href="/admin/edit/news/{{new_id}}" class="product">
+            <img src="/img/uploaded/{{new_image}}" alt="Изображение для новости {{new_id}}" class="product-img">
+            <p class="product-title">{{new_title}}</p>
+        </a>
+        {{/each}}
+        {{else}}
+        <p class="catalog-empty">У Вас еще не добавлено ни одной новости</p>
+        {{/if}}
+    </div>
+
+    <a href="/admin/edit/news/create" class="create-button" title="Добавить новость">
+        <img src="/img/icons/Plus.svg" alt="Добавить новость" class="create-button-img">
+    </a>
+</main>

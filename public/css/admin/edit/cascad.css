@@ -1,0 +1,514 @@
+.title {
+    font-size: var(--admin-font-size-xxl);
+    text-align: center;
+    text-wrap: balance;
+    margin: 20px 10px 10px 10px;
+}
+
+/* PANELS */
+
+.panels {
+    width: calc(100% - 10px * 2);
+    margin: 10px;
+    display: flex;
+}
+
+.left-side-panels,
+.right-side-panels {
+    margin: 5px;
+    width: calc(100% / 2 - 5px * 2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.panel {
+    margin: 0 0 10px 0;
+    padding: 10px;
+    width: calc(100% - 10px * 2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: var(--admin-border-radius-s);
+    background-color: var(--admin-const-white);
+}
+
+.panel-title {
+    margin: 0 0 10px 0;
+    font-size: var(--admin-font-size-l);
+}
+
+.panel-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-content.hidden {
+    display: none;
+}
+
+.panel-content-item {
+    width: calc(100% - 5px * 2);
+    margin: 0 0 10px 0;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    background-color: var(--admin-color-gray-light);
+}
+
+.panel-content-item-content {
+    width: calc(100% - 30px - 20px);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.panel-content-item-title {
+    margin: 0 5px 0 0;
+    text-wrap: wrap;
+}
+
+.panel-content-item-title-signature {
+    margin-bottom: -1px;
+    color: var(--admin-color-gray-semi);
+    font-size: var(--admin-font-size-s);
+    transition: .2s;
+}
+
+.panel-content-item-title-signature:is(:hover, :focus-visible) {
+    color: var(--admin-color-black);   
+}
+
+.panel-content-item-title-signature.link:is(:hover, :focus-visible) {
+    border-bottom: 1px solid var(--admin-color-black);
+}
+
+.panel-content-item-img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.panel-content-item-img[wide="true"] {
+    width: 100px;
+    height: 100px;
+}
+
+.panel-content-item-delete {
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.panel-content-item-delete:is(:hover, :focus-visible) {
+    transform: scale(1.1);
+}
+
+.panel-content-item-delete-img {
+    width: 100%;
+    height: 100%;
+}
+
+.panel-error {
+    margin: 0 0 10px 0;
+}
+
+.panel-error.hidden {
+    display: none;
+}
+
+.panel-actions {
+    display: flex;
+    align-items: center;
+}
+
+.panel-action {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 0;
+    background-color: transparent;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.panel-action:is(:hover, :focus-visible) {
+    transform: scale(1.1);
+}
+
+.panel-action:last-child {
+    margin: 0 0 0 0;
+}
+
+.panel-action-img {
+    width: 100%;
+    height: 100%;
+}
+
+.panel-pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.panel-content-details {
+    width: 100%;
+}
+
+.panel-content-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.panel-content-summary-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel-content-summary-content {
+    padding: 10px 0 0 0;
+}
+
+.panel-link {
+    padding: 10px 20px 10px 20px;
+    border: 1px solid var(--admin-const-black);
+    transition: .2s;
+}
+
+.panel-link:is(:hover, :focus-visible) {
+    color: var(--admin-const-white);
+    background-color: var(--admin-const-black);
+}
+
+/* EDITOR */
+
+.editor-dialog[open] {
+    width: 100vw;
+    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 30;
+}
+
+.editor-title {
+    margin: 0 0 20px 0;
+}
+
+.editor-close {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.editor-form {
+    z-index: 31;
+    overflow-y: auto;
+    width: calc(400px - 20px * 2);
+    max-height: calc(80% - 20px * 2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--admin-const-white);
+    border-radius: var(--admin-border-radius-m);
+    animation: dialogOpen .2s;
+}
+
+.editor-form input {
+    margin: 0 0 20px 0;
+    padding: 0 10px 0 10px;
+    width: calc(100% - 10px * 2);
+    min-height: 40px;
+    height: 40px;
+    color: var(--admin-color-gray-semi);
+    border-bottom: 1px solid var(--admin-color-gray-semi);
+    font-weight: bold;
+    transition: .2s;
+}
+
+.editor-form input:focus-visible {
+    color: var(--admin-const-black);
+    border-color: var(--admin-const-black);
+}
+
+.editor-form input::placeholder {
+    font-weight: normal;
+}
+
+.editor-form button[type="submit"] {
+    width: 100%;
+    min-height: 40px;
+    height: 40px;
+    color: var(--admin-const-white);
+    background-color: var(--admin-color-blue);
+    font-weight: bold;
+    border-radius: var(--admin-border-radius-s);
+    transition: .2s;
+    cursor: pointer;
+}
+
+.editor-form button[type="button"] {
+    margin-bottom: 20px;
+    width: 100%;
+    min-height: 40px;
+    height: 40px;
+    background-color: var(--admin-color-white);
+    font-weight: bold;
+    border-radius: var(--admin-border-radius-s);
+    transition: .2s;
+    cursor: pointer;
+}
+
+.editor-form button[type="submit"].destroy {
+    background-color: var(--admin-color-red);
+}
+
+.editor-form button[type="submit"]:is(:hover, :focus-visible) {
+    background-color: var(--admin-color-blue-focus);
+}
+
+.editor-form button[type="button"]:is(:hover, :focus-visible) {
+    background-color: var(--admin-color-gray-light);
+}
+
+.editor-form button[type="submit"]:is(:hover, :focus-visible).destroy {
+    background-color: var(--admin-color-red-focus);
+}
+
+.editor-form button[type="submit"]:active {
+    background-color: var(--admin-color-blue-active);
+}
+
+.editor-form button[type="submit"].destroy:active {
+    background-color: var(--admin-color-red-active);
+}
+
+.editor-form textarea {
+    resize: vertical;
+    margin: 0 0 20px 0;
+    padding: 0 10px 0 10px;
+    width: calc(100% - 10px * 2);
+    min-height: 80px;
+    height: 80px;
+    color: var(--admin-color-gray-semi);
+    border-bottom: 1px solid var(--admin-color-gray-semi);
+    border-left: 1px solid var(--admin-color-gray-semi);
+    transition: border-color .2s;
+}
+
+.editor-form textarea:focus-visible {
+    color: var(--admin-const-black);
+    border-color: var(--admin-const-black);
+}
+
+.editor-form select {
+    margin: 0 0 20px 0;
+    width: 100%;
+    min-height: 40px;
+    text-align: center;
+    height: 40px;
+    color: var(--admin-color-gray-semi);
+    border-bottom: 1px solid var(--admin-color-gray-semi);
+    font-weight: bold;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.editor-form a[type="return"] {
+    width: 100%;
+    min-height: 40px;
+    height: 40px;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--admin-const-white);
+    background-color: var(--admin-color-blue);
+    font-weight: bold;
+    font-size: var(--admin-font-size-s);
+    border-radius: var(--admin-border-radius-s);
+    transition: .2s;
+    cursor: pointer;
+}
+
+.editor-form a[type="return"]:is(:hover, :focus-visible) {
+    background-color: var(--admin-color-blue-focus);
+}
+
+.editor-form a[type="return"]:active {
+    background-color: var(--admin-color-blue-active);
+}
+
+.editor-form .color-selector {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.editor-form .color-selector input[type="color"] {
+    width: 40px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.editor-form .color-selector label {
+    width: 100%;
+    color: var(--admin-color-gray-semi);
+    font-size: var(--admin-font-size-m);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.editor-form .color-selector label:is(:hover, :focus-visible) {
+    color: var(--admin-color-black);
+}
+
+.editor-dialog.sandbox .editor-form {
+    width: calc(800px - 20px * 2);
+}
+
+.editor-dialog.sandbox textarea {
+    min-height: 200px;
+    height: 200px;
+}
+
+.editor-dialog.sandbox .controls {
+    margin: 0 auto 0 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.editor-dialog.sandbox .controls button {
+    width: 28px;
+    height: 28px;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: .5;
+    transition: .2s;
+}
+
+.editor-dialog.sandbox .controls button:is(:hover, :focus-visible) {
+    opacity: 1;
+    transform: scale(1.1);
+    background-color: transparent;
+}
+
+.editor-dialog.sandbox .controls button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* CHANGES */
+
+.changes-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--admin-color-blue);
+    border-radius: var(--admin-border-radius-m);
+    transition: .2s;
+    cursor: pointer;
+}
+
+.changes-button-img {
+    width: 100%;
+    height: 100%;
+    filter: invert(1);
+}
+
+.changes-button:is(:hover, :focus-visible) {
+    background-color: var(--admin-color-blue-focus);
+}
+
+.changes-button:active {
+    background-color: var(--admin-color-blue-active);
+}
+
+.changes-dialog[open] {
+    width: 100vw;
+    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 30;
+}
+
+.changes-button-close {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.changes-iframe {
+    z-index: 31;
+    width: 80%;
+    height: 80%;
+    border-radius: var(--admin-border-radius-m);
+    box-shadow: 0 0 20px 1px var(--admin-color-gray);
+    animation: dialogOpen .2s;
+}
+
+/* ANIMATIONS */
+
+@keyframes dialogOpen {
+    from {
+        transform: scale(.8);
+    }
+
+    to {
+        transform: scale(1);
+
+    }
+}
+
+/* ADAPTIVE */
+
+@media (max-width: 1000px) {
+    .panels {
+        flex-direction: column;
+    }
+
+    .left-side-panels, .right-side-panels {
+        width: calc(100% - 5px * 2);
+    }
+}
+
+@media (max-width: 840px) {
+    .editor-dialog.sandbox .editor-form {
+        width: 80%;
+    }
+}
+
+@media (max-width: 440px) {
+    .editor-form {
+        width: 80%;
+    }
+}

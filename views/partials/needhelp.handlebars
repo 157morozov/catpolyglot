@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/css/client/components/needhelp.css">
+
+{{#if cache.Contacts}}
+{{#each cache.Contacts}}
+{{#compare contact_type "===" "Телефон"}}
+<section class="needhelp">
+    <img src="/img/icons/Question.svg" alt="Иконка вопросительного знака" class="needhelp-image">
+    <div class="needhelp-info">
+        <p class="needhelp-text">У Вас остались вопросы?</p>
+        <p class="needhelp-text">Наш телефон: <a href="tel:{{formatPhoneNumber contact_content}}" class="needhelp-link">{{contact_content}}</a></p>
+    </div>
+</section>
+{{/compare}}
+{{/each}}
+{{/if}}

@@ -1,0 +1,36 @@
+.error {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center
+}
+
+.error-title {
+    margin-bottom: 10px;
+}
+
+.error-text {
+    margin-bottom: 20px;
+}
+
+.error-tohome {
+    padding: 0 20px 0 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--admin-const-white);
+    background-color: var(--admin-color-blue);
+    border-radius: var(--admin-border-radius-m);
+    font-weight: bold;
+    transition: .2s;
+}
+
+.error-tohome:is(:hover, :focus) {
+    background-color: var(--admin-color-blue-focus);
+}
+
+.error-tohome:active {
+    background-color: var(--admin-color-blue-active);
+}
