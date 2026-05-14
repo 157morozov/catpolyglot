@@ -32,6 +32,15 @@
                 {{/compare}}
                 {{/each}}
                 {{/if}}
+                {{#if Miscs}}
+                {{#each Miscs}}
+                {{#compare misc_type "===" "Логотип"}}
+                <div class="panel-content-item">
+                    <img src="/img/uploaded/{{misc_content}}" alt="Логотип сайта" class="panel-content-item-img">
+                </div>
+                {{/compare}}
+                {{/each}}
+                {{/if}}
                 <div class="panel-actions">
                     <button class="panel-action update-items" table="Home" item-id="general" has_file="true"
                         title="Редактировать запись">
