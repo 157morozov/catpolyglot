@@ -6,8 +6,8 @@
 <main>
     <section class="start">
         <div class="start-left">
-            {{#if cache.Home}}
-            {{#each cache.Home}}
+            {{#if Home}}
+            {{#each Home}}
             {{#compare home_type "===" "Заголовок"}}
             <h1 class="start-title">{{home_content}}</h1>
             {{/compare}}
@@ -18,15 +18,15 @@
             {{/if}}
             <div class="start-links">
                 <a href="/about" class="start-link">О нас</a>
-                {{#if cache.GlobalLinks}}
-                {{#each cache.GlobalLinks}}
+                {{#if GlobalLinks}}
+                {{#each GlobalLinks}}
                 {{#compare gl_type "===" "Записаться"}}
                 <a href={{gl_link}} target="_blank" class="start-link accent">Записаться</a>
                 {{/compare}}
                 {{/each}}
                 {{/if}}
-                {{#if cache.GlobalLinks}}
-                {{#each cache.GlobalLinks}}
+                {{#if GlobalLinks}}
+                {{#each GlobalLinks}}
                 {{#compare gl_type "===" "Оплатить"}}
                 <a href={{gl_link}} target="_blank" class="start-link">Оплатить</a>
                 {{/compare}}
@@ -35,8 +35,8 @@
             </div>
         </div>
         <div class="start-right">
-            {{#if cache.Miscs}}
-            {{#each cache.Miscs}}
+            {{#if Miscs}}
+            {{#each Miscs}}
             {{#compare misc_type "===" "Баннер"}}
             <img src="/img/uploaded/{{misc_content}}" alt="Баннер стартовой страницы" class="start-right-image">
             {{/compare}}
@@ -44,10 +44,10 @@
             {{/if}}
         </div>
     </section>
-    {{#if cache.SliderBanners}}
+    {{#if SliderBanners}}
     <section class="slider">
         <div class="slider-controls">
-            {{#each cache.SliderBannersLength}}
+            {{#each SliderBannersLength}}
             {{#if @first}}
             <button class="slider-change-slide active" title="Переключить слайд" data-slide-id="{{this}}"></button>
             {{else}}
@@ -56,7 +56,7 @@
             {{/each}}
         </div>
         <div id="slides" class="slides">
-            {{#each cache.SliderBanners}}
+            {{#each SliderBanners}}
             <div class="slide">
                 <img src="/img/uploaded/{{new_image}}" alt="Фотография для сайда {{new_id}}" class="slide-image">
                 <a href="/news/{{new_id}}" class="slide-button">Подробнее</a>
@@ -71,8 +71,8 @@
             <a href="/news" class="news-link-all">Посмотреть все</a>
         </div>
         <div class="news-container">
-            {{#if cache.NewsSliced}}
-            {{#each cache.NewsSliced}}
+            {{#if NewsSliced}}
+            {{#each NewsSliced}}
             <div class="new">
                 <img src="/img/uploaded/{{new_image}}" alt="Фотография для новости {{new_id}}" class="new-image">
                 <div class="new-info">

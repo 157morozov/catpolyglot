@@ -10,9 +10,9 @@
         <h2 class="addresses-title">Карта филиалов</h2>
         <div id="map" class="addresses-map"></div>
         <h1 class="addresses-title" id="addresses-list">Адреса филиалов</h1>
-        {{#if cache.Addresses}}
+        {{#if Addresses}}
         <div class="details">
-            {{#each cache.Addresses}}
+            {{#each Addresses}}
             <details class="details-container">
                 <summary class="detais-header">{{address_title}}</summary>
                 <div class="details-content">
@@ -32,7 +32,7 @@
 {{>footer}}
 
 <script>
-    const cache = {{{ jsonStringify cache }}}
+    const pageData = {{{ jsonStringify this }}}
 </script>
 
 <script src="/js/client/yandexmaps.js"></script>

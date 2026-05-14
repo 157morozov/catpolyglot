@@ -2,8 +2,8 @@
 
 <header>
     <a href="/" class="header-brend">
-        {{#if cache.Miscs}}
-        {{#each cache.Miscs}}
+        {{#if Miscs}}
+        {{#each Miscs}}
         {{#compare misc_type "===" "Логотип"}}
         <img src="/img/uploaded/{{misc_content}}" alt="Кот-полиглот">
         {{/compare}}
@@ -22,15 +22,15 @@
         <a href="/pricing" class="header-link">Стоимость</a>
         <a href="/addresses" class="header-link">Филиалы</a>
         <a href="/news" class="header-link">Новости</a>
-        {{#if cache.GlobalLinks}}
-        {{#each cache.GlobalLinks}}
+        {{#if GlobalLinks}}
+        {{#each GlobalLinks}}
         {{#compare gl_type "===" "Оплатить"}}
         <a href={{gl_link}} target="_blank" class="header-link">Оплатить</a>
         {{/compare}}
         {{/each}}
         {{/if}}
-        {{#if cache.GlobalLinks}}
-        {{#each cache.GlobalLinks}}
+        {{#if GlobalLinks}}
+        {{#each GlobalLinks}}
         {{#compare gl_type "===" "Записаться"}}
         <a href={{gl_link}} target="_blank" class="header-link accent">Записаться</a>
         {{/compare}}
