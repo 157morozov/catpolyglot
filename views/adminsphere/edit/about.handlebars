@@ -11,9 +11,9 @@
         <div class="left-side-panels">
             <div class="panel">
                 <h3 class="panel-title">Главная страница</h3>
-                {{#if cache.Home}}
+                {{#if Home}}
                 <div class="panel-content">
-                    {{#each cache.Home}}
+                    {{#each Home}}
                     <div class="panel-content-item">
                         <pre class="panel-pre">{{home_content}}</pre>
                     </div>
@@ -22,12 +22,21 @@
                 {{else}}
                 <p class="panel-error">Таблица пустая</p>
                 {{/if}}
-                {{#if cache.Miscs}}
-                {{#each cache.Miscs}}
+                {{#if Miscs}}
+                {{#each Miscs}}
                 {{#compare misc_type "===" "Баннер"}}
                 <div class="panel-content-item">
                     <img src="/img/uploaded/{{misc_content}}" wide="true" alt="Баннер главной страницы"
                         class="panel-content-item-img">
+                </div>
+                {{/compare}}
+                {{/each}}
+                {{/if}}
+                {{#if Miscs}}
+                {{#each Miscs}}
+                {{#compare misc_type "===" "Логотип"}}
+                <div class="panel-content-item">
+                    <img src="/img/uploaded/{{misc_content}}" alt="Логотип сайта" class="panel-content-item-img">
                 </div>
                 {{/compare}}
                 {{/each}}
@@ -41,9 +50,9 @@
             </div>
             <div class="panel">
                 <h3 class="panel-title">О нас</h3>
-                {{#if cache.About}}
+                {{#if About}}
                 <div class="panel-content">
-                    {{#each cache.About}}
+                    {{#each About}}
                     <div class="panel-content-item">
                         <pre class="panel-pre sandbox">{{{about_content}}}</pre>
                     </div>
@@ -61,9 +70,9 @@
             </div>
             <div class="panel">
                 <h3 class="panel-title">Адреса филиалов</h3>
-                {{#if cache.Addresses}}
+                {{#if Addresses}}
                 <div class="panel-content">
-                    {{#each cache.Addresses}}
+                    {{#each Addresses}}
                     <div class="panel-content-item">
                         <div class="panel-content-item-content">
                             <p class="panel-content-item-title">{{address_title}}</p>
@@ -89,7 +98,7 @@
                         has_file="true">
                         <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
                     </button>
-                    {{#if cache.Addresses}}
+                    {{#if Addresses}}
                     <button class="panel-action truncate-items" table="Addresses" title="Очистить все записи">
                         <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
                     </button>
@@ -100,9 +109,9 @@
         <div class="right-side-panels">
             <div class="panel">
                 <h3 class="panel-title">Глобальные ссылки</h3>
-                {{#if cache.GlobalLinks}}
+                {{#if GlobalLinks}}
                 <div class="panel-content">
-                    {{#each cache.GlobalLinks}}
+                    {{#each GlobalLinks}}
                     <div class="panel-content-item">
                         <p class="panel-content-item-title">{{gl_type}}</p>
                         <a href={{gl_link}} target="_blank" class="panel-content-item-title-signature link">(Ссылка)</a>
@@ -120,7 +129,7 @@
                     <button class="panel-action add-item" table="GlobalLinks" title="Добавить новую запись">
                         <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
                     </button>
-                    {{#if cache.GlobalLinks}}
+                    {{#if GlobalLinks}}
                     <button class="panel-action truncate-items" table="GlobalLinks" title="Очистить все записи">
                         <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
                     </button>
@@ -129,9 +138,9 @@
             </div>
             <div class="panel">
                 <h3 class="panel-title">Контакты</h3>
-                {{#if cache.Contacts}}
+                {{#if Contacts}}
                 <div class="panel-content">
-                    {{#each cache.Contacts}}
+                    {{#each Contacts}}
                     <div class="panel-content-item">
                         <p class="panel-content-item-title">{{contact_type}}: {{contact_content}}</p>
                         <button class="panel-content-item-delete" table="Contacts" item-id={{contact_type}}
@@ -148,7 +157,7 @@
                     <button class="panel-action add-item" table="Contacts" title="Добавить новую запись">
                         <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
                     </button>
-                    {{#if cache.Contacts}}
+                    {{#if Contacts}}
                     <button class="panel-action truncate-items" table="Contacts" title="Очистить все записи">
                         <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
                     </button>
@@ -157,9 +166,9 @@
             </div>
             <div class="panel">
                 <h3 class="panel-title">Налоговый вычет</h3>
-                {{#if cache.TaxDeduction}}
+                {{#if TaxDeduction}}
                 <div class="panel-content">
-                    {{#each cache.TaxDeduction}}
+                    {{#each TaxDeduction}}
                     <div class="panel-content-item">
                         <pre class="panel-pre sandbox">{{{td_content}}}</pre>
                     </div>
@@ -190,7 +199,7 @@
 </main>
 
 <script>
-    const cache = {{{ jsonStringify cache }}}
+    const pageData = {{{ jsonStringify this }}}
 </script>
 
 <script src="/js/admin/edit/about.js"></script>

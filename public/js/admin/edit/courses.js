@@ -219,7 +219,7 @@ const editor_content = {
                 name: "sales_content",
                 placeholder: "Содержание",
                 required: "true",
-            }, cache.Sales.find(entry => entry.sale_type === "Содержание")?.sale_content || ""),
+            }, pageData.Sales.find(entry => entry.sale_type === "Содержание")?.sale_content || ""),
             ElCreator("paired", "button", {
                 type: "submit",
             }, "Изменить"),

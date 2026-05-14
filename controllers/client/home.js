@@ -1,29 +1,16 @@
 exports.default = async (req, res) => {
-    const cache = req.cache
-    const SliderBanners = cache.News.filter(_new => {
-        if (_new.new_is_in_slider) return _new
-    })
-    function createArray(n) {
-        const result = [];
-        for (let i = 1; i <= n; i++) {
-            result.push(i);
-        }
-        return result;
-    }
-    const SliderBannersLength = createArray(SliderBanners.length)
+    const [data] = await req.database.promise().selectTablesSnapshot(["Contacts", "GlobalLinks", "Miscs", "Home", "News"])
+    const news = [...data.News].reverse()
+    const sliderBanners = news.filter((_new) => _new.new_is_in_slider)
 
     res.status(200).render("home", {
         title: "Главная страница / Кот-Полиглот",
-        cache: {
-            // Necessarily data transfer
-            Contacts: cache.Contacts,
-            GlobalLinks: cache.GlobalLinks,
-            Miscs: cache.Miscs,
-            // Additionally data transfer
-            Home: cache.Home,
-            SliderBanners,
-            SliderBannersLength,
-            NewsSliced: cache.News.slice(0, 4),
-        },
+        Contacts: data.Contacts,
+        GlobalLinks: data.GlobalLinks,
+        Miscs: data.Miscs,
+        Home: data.Home,
+        SliderBanners: sliderBanners,
+        SliderBannersLength: Array.from({ length: sliderBanners.length }, (_, i) => i + 1),
+        NewsSliced: news.slice(0, 4),
     })
 }

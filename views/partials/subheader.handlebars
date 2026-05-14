@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="/css/client/components/subheader.css">
 
-{{#if cache.Contacts}}
+{{#if Contacts}}
 <subheader>
-    {{#each cache.Contacts}}
+    {{#each Contacts}}
     {{#compare contact_type "===" "Телефон"}}
     <a href="tel:{{formatPhoneNumber contact_content}}" class="subheader-link">{{contact_content}}</a>
     {{/compare}}
     {{/each}}
     <div class="subheader-socials">
-        {{#each cache.Contacts}}
+        {{#each Contacts}}
         {{#compare contact_type "===" "Whatsapp"}}
         <a href={{contact_content}} target="_blank" title="Whatsapp" class="subheader-social">
             <img src="/img/icons/Whatsapp.svg" alt="Whatsapp">

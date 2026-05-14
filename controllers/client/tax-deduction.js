@@ -1,15 +1,10 @@
 exports.default = async (req, res) => {
-    const cache = req.cache
-
+    const [data] = await req.database.promise().selectTablesSnapshot(["Contacts", "GlobalLinks", "Miscs", "TaxDeduction"])
     res.status(200).render("tax-deduction", {
         title: "Налоговый вычет / Кот-Полиглот",
-        cache: {
-            // Necessarily data transfer
-            Contacts: cache.Contacts,
-            GlobalLinks: cache.GlobalLinks,
-            Miscs: cache.Miscs,
-            // Additionally data transfer
-            TaxDeduction: cache.TaxDeduction,
-        },
+        Contacts: data.Contacts,
+        GlobalLinks: data.GlobalLinks,
+        Miscs: data.Miscs,
+        TaxDeduction: data.TaxDeduction,
     })
 }
