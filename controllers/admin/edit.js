@@ -20,11 +20,11 @@ exports.editTableHomeUpdate = async (req, res, next) => {
     const content = purify(req.body.home_content ?? "")
     const title = purify(req.body.home_title ?? "")
     const queries = [
-        req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ("Содержание", ?) ON CONFLICT(home_type) DO UPDATE SET home_content = excluded.home_content;`, [content]),
-        req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ("Заголовок", ?) ON CONFLICT(home_type) DO UPDATE SET home_content = excluded.home_content;`, [title])
+        req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ('Содержание', ?) ON CONFLICT(home_type) DO UPDATE SET home_content = excluded.home_content;`, [content]),
+        req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ('Заголовок', ?) ON CONFLICT(home_type) DO UPDATE SET home_content = excluded.home_content;`, [title])
     ]
     const banner = req.file ?? undefined
-    if (banner !== undefined) queries.push(req.database.promise().query(`INSERT INTO Miscs (misc_type, misc_content) VALUES ("Баннер", ?) ON CONFLICT(misc_type) DO UPDATE SET misc_content = excluded.misc_content;`, [banner.filename]))
+    if (banner !== undefined) queries.push(req.database.promise().query(`INSERT INTO Miscs (misc_type, misc_content) VALUES ('Баннер', ?) ON CONFLICT(misc_type) DO UPDATE SET misc_content = excluded.misc_content;`, [banner.filename]))
     Promise.all(queries).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
@@ -81,7 +81,7 @@ exports.editTableGlobalLinksDelete = async (req, res, next) => {
 
 exports.editTableAboutUpdate = async (req, res, next) => {
     const content = purify(req.body.about_content ?? "")
-    req.database.promise().query(`INSERT INTO About (about_type, about_content) VALUES ("Содержание", ?) ON CONFLICT(about_type) DO UPDATE SET about_content = excluded.about_content;`, [content]).then(() => {
+    req.database.promise().query(`INSERT INTO About (about_type, about_content) VALUES ('Содержание', ?) ON CONFLICT(about_type) DO UPDATE SET about_content = excluded.about_content;`, [content]).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -95,7 +95,7 @@ exports.editTableAboutUpdate = async (req, res, next) => {
 
 exports.editTableTaxDeductionUpdate = async (req, res, next) => {
     const content = purify(req.body.td_content ?? "")
-    req.database.promise().query(`INSERT INTO TaxDeduction (td_type, td_content) VALUES ("Содержание", ?) ON CONFLICT(td_type) DO UPDATE SET td_content = excluded.td_content;`, [content]).then(() => {
+    req.database.promise().query(`INSERT INTO TaxDeduction (td_type, td_content) VALUES ('Содержание', ?) ON CONFLICT(td_type) DO UPDATE SET td_content = excluded.td_content;`, [content]).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -229,13 +229,10 @@ exports.courses = async (req, res) => {
     res.status(200).render("adminsphere/edit/courses", {
         title: `Редактирование информации о курсах и стоимости / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
-        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
-        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
-        About: (await req.database.promise().query("SELECT * FROM About"))[0],
-        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
-        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
-        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
-        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
+        Benifits: (await req.database.promise().query("SELECT * FROM Benifits"))[0],
+        Sales: (await req.database.promise().query("SELECT * FROM Sales"))[0],
+        Courses: (await req.database.promise().query("SELECT * FROM Courses"))[0],
+        Pricing: (await req.database.promise().query("SELECT * FROM Pricing"))[0],
     })
 }
 
@@ -359,7 +356,7 @@ exports.editTableCoursesDelete = async (req, res, next) => {
 
 exports.editTableSalesUpdate = async (req, res, next) => {
     const content = purify(req.body.sales_content ?? "")
-    req.database.promise().query(`INSERT INTO Sales (sale_type, sale_content) VALUES ("Содержание", ?) ON CONFLICT(sale_type) DO UPDATE SET sale_content = excluded.sale_content;`, [content]).then(() => {
+    req.database.promise().query(`INSERT INTO Sales (sale_type, sale_content) VALUES ('Содержание', ?) ON CONFLICT(sale_type) DO UPDATE SET sale_content = excluded.sale_content;`, [content]).then(() => {
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -442,32 +439,22 @@ exports.pricing = async (req, res) => {
 }
 
 exports.news = async (req, res) => {
+    const [news] = await req.database.promise().query("SELECT * FROM News ORDER BY new_created_at DESC")
     res.status(200).render("adminsphere/edit/news", {
         title: `Редактирование новостей / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
-        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
-        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
-        About: (await req.database.promise().query("SELECT * FROM About"))[0],
-        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
-        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
-        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
-        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
+        News: news,
     })
 }
 
 exports.new = async (req, res) => {
     const id = purify(req.params.new_id ?? "")
+    const [news] = await req.database.promise().query("SELECT * FROM News ORDER BY new_created_at DESC")
 
     res.status(200).render("adminsphere/edit/new", {
         title: `Редактирование новости / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
-        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
-        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
-        About: (await req.database.promise().query("SELECT * FROM About"))[0],
-        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
-        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
-        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
-        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
+        News: news,
         id,
     })
 }
