@@ -465,6 +465,13 @@ exports.newCreate = async (req, res) => {
     res.status(200).render("adminsphere/edit/newcreate", {
         title: `Создание новости / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
+        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
+        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
+        About: (await req.database.promise().query("SELECT * FROM About"))[0],
+        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
+        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
+        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
+        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
     })
 }
 
