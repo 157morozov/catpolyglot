@@ -22,7 +22,7 @@ npm run start
 ```env
 SERVER_PORT=3000
 ADMIN_LOGIN=admin
-ADMIN_PASSWORD=change_me
+ADMIN_PASSWORD=changeme123
 SQLITE_PATH=./database.sqlite
 ```
 
