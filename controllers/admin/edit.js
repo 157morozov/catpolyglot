@@ -23,8 +23,10 @@ exports.editTableHomeUpdate = async (req, res, next) => {
         req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ('Содержание', ?) ON CONFLICT(home_type) DO UPDATE SET home_content = excluded.home_content;`, [content]),
         req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ('Заголовок', ?) ON CONFLICT(home_type) DO UPDATE SET home_content = excluded.home_content;`, [title])
     ]
-    const banner = req.file ?? undefined
-    if (banner !== undefined) queries.push(req.database.promise().query(`INSERT INTO Miscs (misc_type, misc_content) VALUES ('Баннер', ?) ON CONFLICT(misc_type) DO UPDATE SET misc_content = excluded.misc_content;`, [banner.filename]))
+    const banner = req.files?.misc_content?.[0]
+    const logo = req.files?.misc_logo?.[0]
+    if (banner) queries.push(req.database.promise().query(`INSERT INTO Miscs (misc_type, misc_content) VALUES ('Баннер', ?) ON CONFLICT(misc_type) DO UPDATE SET misc_content = excluded.misc_content;`, [banner.filename]))
+    if (logo) queries.push(req.database.promise().query(`INSERT INTO Miscs (misc_type, misc_content) VALUES ('Логотип', ?) ON CONFLICT(misc_type) DO UPDATE SET misc_content = excluded.misc_content;`, [logo.filename]))
     Promise.all(queries).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {

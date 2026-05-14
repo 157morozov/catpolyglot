@@ -29,7 +29,7 @@ router.post("/logout",  loginController.logout)
 
 // About
 router.get("/edit/about", authMiddleware,  editController.about)
-router.post("/edit/table/Home/update/general", authMiddleware,  imageUpload.single("misc_content"), editController.editTableHomeUpdate)
+router.post("/edit/table/Home/update/general", authMiddleware,  imageUpload.fields([{ name: "misc_content", maxCount: 1 }, { name: "misc_logo", maxCount: 1 }]), editController.editTableHomeUpdate)
 router.post("/edit/table/GlobalLinks/insert", authMiddleware,  editController.editTableGlobalLinksInsert)
 router.post("/edit/table/GlobalLinks/truncate", authMiddleware,  editController.editTableGlobalLinksTruncate)
 router.post("/edit/table/GlobalLinks/delete/:gl_type", authMiddleware,  editController.editTableGlobalLinksDelete)

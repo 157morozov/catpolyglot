@@ -82,6 +82,12 @@ const editor_content = {
                 accept: "image/*",
                 id: "inpHomeBanner"
             }),
+            ElCreator("unpaired", "input", {
+                name: "misc_logo",
+                type: "file",
+                accept: "image/*",
+                id: "inpHeaderLogo"
+            }),
             ElCreator("paired", "button", {
                 type: "submit",
             }, "Изменить"),
