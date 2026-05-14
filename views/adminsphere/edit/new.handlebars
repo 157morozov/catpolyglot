@@ -9,8 +9,8 @@
 <main>
     {{>adminheader}}
     <h2 class="title">Изменить новость № {{id}}</h2>
-    {{#if cache.News}}
-    {{#each cache.News}}
+    {{#if News}}
+    {{#each News}}
     {{#compare new_id "==" ../id}}
     <form action="/admin/edit/table/News/update/{{../id}}" method="post" enctype="multipart/form-data" class="panels">
         <div class="left-side-panels">
@@ -107,7 +107,7 @@
 </main>
 
 <script>
-    const cache = {{{ jsonStringify cache }}}
+    const pageData = {{{ jsonStringify this }}}
 </script>
 
 <script src="/js/admin/edit/newcreate.js"></script>

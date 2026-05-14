@@ -4,8 +4,8 @@
     <div class="footer-upper-side">
         <a href="/" class="footer-brend"><span class="footer-brend-highlight">Кот-Полиглот</span></a>
         <div class="footer-links">
-            {{#if cache.Contacts}}
-            {{#each cache.Contacts}}
+            {{#if Contacts}}
+            {{#each Contacts}}
             {{#compare contact_type "===" "Телефон"}}
             <a href="tel:{{formatPhoneNumber contact_content}}" class="footer-link">{{contact_content}}</a>
             {{/compare}}
@@ -20,16 +20,16 @@
     <hr class="footer-line">
     <div class="footer-lower-side">
         <p class="footer-copyright">© ИП Сафронов, 2024 | Все права защищены</p>
-        {{#if cache.GlobalLinks}}
+        {{#if GlobalLinks}}
         <div class="footer-legal-links">
-            {{#each cache.GlobalLinks}}
+            {{#each GlobalLinks}}
             {{#compare gl_type "===" "ДоговорОферты"}}
             <a href={{gl_link}} target="_blank" class="footer-legal-link">Договор оферты</a>
             {{/compare}}
             {{/each}}
             {{/if}}
-            {{#if cache.GlobalLinks}}
-            {{#each cache.GlobalLinks}}
+            {{#if GlobalLinks}}
+            {{#each GlobalLinks}}
             {{#compare gl_type "===" "ПолитикаКонфиденциальности"}}
             <a href="{{gl_link}}" target="_blank" class="footer-legal-link">Политика
                 компании в отношении персональных данных</a>
