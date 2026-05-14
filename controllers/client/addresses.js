@@ -1,19 +1,10 @@
 exports.default = async (req, res) => {
-    const cache = req.cache
-
+    const [data] = await req.database.promise().selectTablesSnapshot(["Contacts", "GlobalLinks", "Miscs", "Addresses"])
     res.status(200).render("addresses", {
         title: "Адреса филиалов / Кот-Полиглот",
-        cache: {
-            // Necessarily data transfer
-            Contacts: cache.Contacts,
-            GlobalLinks: cache.GlobalLinks,
-            Miscs: cache.Miscs,
-            // Additionally data transfer
-            Addresses: cache.Addresses.sort(function (a, b) {
-                var titleA = a.address_title.charAt(0)
-                var titleB = b.address_title.charAt(0)
-                return titleA.localeCompare(titleB)
-            }),
-        },
+        Contacts: data.Contacts,
+        GlobalLinks: data.GlobalLinks,
+        Miscs: data.Miscs,
+        Addresses: data.Addresses.sort((a, b) => a.address_title.charAt(0).localeCompare(b.address_title.charAt(0))),
     })
 }

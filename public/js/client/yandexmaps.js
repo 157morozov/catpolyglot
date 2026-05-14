@@ -9,8 +9,8 @@ function init() {
     map.controls.remove('trafficControl');
     map.controls.remove('fullscreenControl');
 
-    if (cache.Addresses) {
-        cache.Addresses.forEach(place => {
+    if (pageData.Addresses) {
+        pageData.Addresses.forEach(place => {
             map.geoObjects.add(new ymaps.Placemark(place.address_coords, {
                 iconCaption: place.address_title,
             }, {}))

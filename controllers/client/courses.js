@@ -1,16 +1,11 @@
 exports.default = async (req, res) => {
-    const cache = req.cache
-
+    const [data] = await req.database.promise().selectTablesSnapshot(["Contacts", "GlobalLinks", "Miscs", "Benifits", "Courses"])
     res.status(200).render("courses", {
         title: "Обучающие программы и курсы / Кот-Полиглот",
-        cache: {
-            // Necessarily data transfer
-            Contacts: cache.Contacts,
-            GlobalLinks: cache.GlobalLinks,
-            Miscs: cache.Miscs,
-            // Additionally data transfer
-            Benifits: cache.Benifits,
-            Courses: cache.Courses,
-        },
+        Contacts: data.Contacts,
+        GlobalLinks: data.GlobalLinks,
+        Miscs: data.Miscs,
+        Benifits: data.Benifits,
+        Courses: data.Courses,
     })
 }

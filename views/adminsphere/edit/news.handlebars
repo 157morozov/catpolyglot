@@ -7,8 +7,8 @@
     {{>adminheader}}
     <h2 class="title">Новости</h2>
     <div class="catalog">
-        {{#if cache.News}}
-        {{#each cache.News}}
+        {{#if News}}
+        {{#each News}}
         <a href="/admin/edit/news/{{new_id}}" class="product">
             <img src="/img/uploaded/{{new_image}}" alt="Изображение для новости {{new_id}}" class="product-img">
             <p class="product-title">{{new_title}}</p>

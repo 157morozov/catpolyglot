@@ -8,8 +8,8 @@
         <h2 class="benifits-title">Преимущества обучения в школе <span
                 class="benifits-title-highlight">Кот-Полиглот</span></h2>
         <div class="benifits-container">
-            {{#if cache.Benifits}}
-            {{#each cache.Benifits}}
+            {{#if Benifits}}
+            {{#each Benifits}}
             <div class="benifit">
                 <div class="benifit-info">
                     <h3 class="benifit-title">{{benifit_title}}</h3>
@@ -25,8 +25,8 @@
     <section class="courses">
         <h1 class="courses-title">Обучающие программы и курсы</h1>
         <div class="courses-container">
-            {{#if cache.Courses}}
-            {{#each cache.Courses}}
+            {{#if Courses}}
+            {{#each Courses}}
             <div class="course" style="background-color: {{course_color}};">
                 {{#if course_parameters}}
                 <div class="course-parameters">
@@ -59,8 +59,8 @@
             {{/if}}
         </div>
     </section>
-    {{#if cache.GlobalLinks}}
-    {{#each cache.GlobalLinks}}
+    {{#if GlobalLinks}}
+    {{#each GlobalLinks}}
     {{#compare gl_type "===" "Записаться"}}
     <a class="courses-signup-link" target="_blank" href="{{gl_link}}">Записаться</a>
     {{/compare}}
