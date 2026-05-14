@@ -11,9 +11,9 @@
         <div class="left-side-panels">
             <div class="panel">
                 <h3 class="panel-title">Преимущества</h3>
-                {{#if cache.Benifits}}
+                {{#if Benifits}}
                 <div class="panel-content">
-                    {{#each cache.Benifits}}
+                    {{#each Benifits}}
                     <div class="panel-content-item">
                         <div class="panel-content-item-content">
                             <p class="panel-content-item-title">{{benifit_title}}</p>
@@ -36,7 +36,7 @@
                         has_file="true">
                         <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
                     </button>
-                    {{#if cache.Benifits}}
+                    {{#if Benifits}}
                     <button class="panel-action truncate-items" table="Benifits" title="Очистить все записи">
                         <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
                     </button>
@@ -45,9 +45,9 @@
             </div>
             <div class="panel">
                 <h3 class="panel-title">Скидки</h3>
-                {{#if cache.Sales}}
+                {{#if Sales}}
                 <div class="panel-content">
-                    {{#each cache.Sales}}
+                    {{#each Sales}}
                     <div class="panel-content-item">
                         <pre class="panel-pre sandbox">{{{sale_content}}}</pre>
                     </div>
@@ -67,9 +67,9 @@
         <div class="right-side-panels">
             <div class="panel">
                 <h3 class="panel-title">Курсы</h3>
-                {{#if cache.Courses}}
+                {{#if Courses}}
                 <div class="panel-content">
-                    {{#each cache.Courses}}
+                    {{#each Courses}}
                     <div class="panel-content-item">
                         <div class="panel-content-item-content">
                             <p class="panel-content-item-title">{{course_title}}</p>
@@ -97,7 +97,7 @@
                     <button class="panel-action add-item" table="Courses" title="Добавить новую запись">
                         <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
                     </button>
-                    {{#if cache.Courses}}
+                    {{#if Courses}}
                     <button class="panel-action truncate-items" table="Courses" title="Очистить все записи">
                         <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
                     </button>
@@ -106,9 +106,9 @@
             </div>
             <div class="panel">
                 <h3 class="panel-title">Цена</h3>
-                {{#if cache.Pricing}}
+                {{#if Pricing}}
                 <div class="panel-content">
-                    {{#each cache.Pricing}}
+                    {{#each Pricing}}
                     <div class="panel-content-item">
                         <div class="panel-content-item-content">
                             <p class="panel-content-item-title">{{pricing_title}}</p>
@@ -142,7 +142,7 @@
                     <button class="panel-action add-item" table="Pricing" title="Добавить новую запись">
                         <img src="/img/icons/Add.svg" alt="Add" class="panel-action-img">
                     </button>
-                    {{#if cache.Pricing}}
+                    {{#if Pricing}}
                     <button class="panel-action truncate-items" table="Pricing" title="Очистить все записи">
                         <img src="/img/icons/ClipboardRemove.svg" alt="Truncate" class="panel-action-img">
                     </button>
@@ -164,7 +164,7 @@
 </main>
 
 <script>
-    const cache = {{{ jsonStringify cache }}}
+    const pageData = {{{ jsonStringify this }}}
 </script>
 
 <script src="/js/admin/edit/courses.js"></script>
