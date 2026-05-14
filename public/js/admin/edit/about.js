@@ -69,13 +69,13 @@ const editor_content = {
                 type: "text",
                 placeholder: "Заголовок",
                 required: "true",
-                value: cache.Home.find(entry => entry.home_type === "Заголовок")?.home_content || "",
+                value: pageData.Home.find(entry => entry.home_type === "Заголовок")?.home_content || "",
             }),
             ElCreator("paired", "textarea", {
                 name: "home_content",
                 placeholder: "Содержание",
                 required: "true",
-            }, cache.Home.find(entry => entry.home_type === "Содержание")?.home_content || ""),
+            }, pageData.Home.find(entry => entry.home_type === "Содержание")?.home_content || ""),
             ElCreator("unpaired", "input", {
                 name: "misc_content",
                 type: "file",
@@ -98,7 +98,7 @@ const editor_content = {
                 name: "about_content",
                 placeholder: "Содержание",
                 required: "true",
-            }, cache.About.find(entry => entry.about_type === "Содержание")?.about_content || ""),
+            }, pageData.About.find(entry => entry.about_type === "Содержание")?.about_content || ""),
             ElCreator("paired", "button", {
                 type: "submit",
             }, "Изменить"),
@@ -115,7 +115,7 @@ const editor_content = {
                 name: "td_content",
                 placeholder: "Содержание",
                 required: "true",
-            }, cache.TaxDeduction.find(entry => entry.td_type === "Содержание")?.td_content || ""),
+            }, pageData.TaxDeduction.find(entry => entry.td_type === "Содержание")?.td_content || ""),
             ElCreator("paired", "button", {
                 type: "submit",
             }, "Изменить"),

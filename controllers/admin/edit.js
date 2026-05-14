@@ -1,5 +1,4 @@
 const purify = require("../../utils/admin/purify")
-const cacheMiddleware = require("../../middleware/cache")
 const path = require("path")
 const sharp = require("sharp")
 
@@ -7,7 +6,13 @@ exports.about = async (req, res) => {
     res.status(200).render("adminsphere/edit/about", {
         title: `Редактирование информации о компании / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
-        cache: req.cache,
+        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
+        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
+        About: (await req.database.promise().query("SELECT * FROM About"))[0],
+        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
+        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
+        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
+        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
     })
 }
 
@@ -15,13 +20,12 @@ exports.editTableHomeUpdate = async (req, res, next) => {
     const content = purify(req.body.home_content ?? "")
     const title = purify(req.body.home_title ?? "")
     const queries = [
-        req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ("Содержание", ?) ON DUPLICATE KEY UPDATE home_content = ?;`, [content, content]),
-        req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ("Заголовок", ?) ON DUPLICATE KEY UPDATE home_content = ?;`, [title, title])
+        req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ("Содержание", ?) ON CONFLICT(home_type) DO UPDATE SET home_content = excluded.home_content;`, [content]),
+        req.database.promise().query(`INSERT INTO Home (home_type, home_content) VALUES ("Заголовок", ?) ON CONFLICT(home_type) DO UPDATE SET home_content = excluded.home_content;`, [title])
     ]
     const banner = req.file ?? undefined
-    if (banner !== undefined) queries.push(req.database.promise().query(`INSERT INTO Miscs (misc_type, misc_content) VALUES ("Баннер", ?) ON DUPLICATE KEY UPDATE misc_content = ?;`, [banner.filename, banner.filename]))
+    if (banner !== undefined) queries.push(req.database.promise().query(`INSERT INTO Miscs (misc_type, misc_content) VALUES ("Баннер", ?) ON CONFLICT(misc_type) DO UPDATE SET misc_content = excluded.misc_content;`, [banner.filename]))
     Promise.all(queries).then(() => {
-        cacheMiddleware(req, res, next, ["Home", "Miscs"])
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -36,8 +40,7 @@ exports.editTableHomeUpdate = async (req, res, next) => {
 exports.editTableGlobalLinksInsert = async (req, res, next) => {
     const type = purify(req.body.gl_type ?? "")
     const link = purify(req.body.gl_link ?? "")
-    req.database.promise().query(`INSERT INTO GlobalLinks (gl_type, gl_link) VALUES (?, ?) ON DUPLICATE KEY UPDATE gl_link = ?;`, [type, link, link]).then(() => {
-        cacheMiddleware(req, res, next, "GlobalLinks")
+    req.database.promise().query(`INSERT INTO GlobalLinks (gl_type, gl_link) VALUES (?, ?) ON CONFLICT(gl_type) DO UPDATE SET gl_link = excluded.gl_link;`, [type, link]).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -50,8 +53,7 @@ exports.editTableGlobalLinksInsert = async (req, res, next) => {
 }
 
 exports.editTableGlobalLinksTruncate = async (req, res, next) => {
-    req.database.promise().query(`TRUNCATE TABLE GlobalLinks`).then(() => {
-        cacheMiddleware(req, res, next, "GlobalLinks")
+    req.database.promise().query(`DELETE FROM GlobalLinks`).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -66,7 +68,6 @@ exports.editTableGlobalLinksTruncate = async (req, res, next) => {
 exports.editTableGlobalLinksDelete = async (req, res, next) => {
     const type = purify(req.params.gl_type ?? "")
     req.database.promise().query(`DELETE FROM GlobalLinks WHERE gl_type = ?`, [type]).then(() => {
-        cacheMiddleware(req, res, next, "GlobalLinks")
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -80,8 +81,7 @@ exports.editTableGlobalLinksDelete = async (req, res, next) => {
 
 exports.editTableAboutUpdate = async (req, res, next) => {
     const content = purify(req.body.about_content ?? "")
-    req.database.promise().query(`INSERT INTO About (about_type, about_content) VALUES ("Содержание", ?) ON DUPLICATE KEY UPDATE about_content = ?;`, [content, content]).then(() => {
-        cacheMiddleware(req, res, next, "About")
+    req.database.promise().query(`INSERT INTO About (about_type, about_content) VALUES ("Содержание", ?) ON CONFLICT(about_type) DO UPDATE SET about_content = excluded.about_content;`, [content]).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -95,8 +95,7 @@ exports.editTableAboutUpdate = async (req, res, next) => {
 
 exports.editTableTaxDeductionUpdate = async (req, res, next) => {
     const content = purify(req.body.td_content ?? "")
-    req.database.promise().query(`INSERT INTO TaxDeduction (td_type, td_content) VALUES ("Содержание", ?) ON DUPLICATE KEY UPDATE td_content = ?;`, [content, content]).then(() => {
-        cacheMiddleware(req, res, next, "TaxDeduction")
+    req.database.promise().query(`INSERT INTO TaxDeduction (td_type, td_content) VALUES ("Содержание", ?) ON CONFLICT(td_type) DO UPDATE SET td_content = excluded.td_content;`, [content]).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -111,8 +110,7 @@ exports.editTableTaxDeductionUpdate = async (req, res, next) => {
 exports.editTableContactsInsert = async (req, res, next) => {
     const type = purify(req.body.contact_type ?? "")
     const content = purify(req.body.contact_content ?? "")
-    req.database.promise().query(`INSERT INTO Contacts (contact_type, contact_content) VALUES (?, ?) ON DUPLICATE KEY UPDATE contact_content = ?;`, [type, content, content]).then(() => {
-        cacheMiddleware(req, res, next, "Contacts")
+    req.database.promise().query(`INSERT INTO Contacts (contact_type, contact_content) VALUES (?, ?) ON CONFLICT(contact_type) DO UPDATE SET contact_content = excluded.contact_content;`, [type, content]).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -125,8 +123,7 @@ exports.editTableContactsInsert = async (req, res, next) => {
 }
 
 exports.editTableContactsTruncate = async (req, res, next) => {
-    req.database.promise().query(`TRUNCATE TABLE Contacts`).then(() => {
-        cacheMiddleware(req, res, next, "Contacts")
+    req.database.promise().query(`DELETE FROM Contacts`).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -141,7 +138,6 @@ exports.editTableContactsTruncate = async (req, res, next) => {
 exports.editTableContactsDelete = async (req, res, next) => {
     const type = purify(req.params.contact_type ?? "")
     req.database.promise().query(`DELETE FROM Contacts WHERE contact_type = ?`, [type]).then(() => {
-        cacheMiddleware(req, res, next, "Contacts")
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -177,7 +173,6 @@ exports.editTableAddressesInsert = async (req, res, next) => {
                 })
             } else {
                 req.database.promise().query(`INSERT INTO Addresses (address_title, address_description, address_image, address_coords) VALUES (?, ?, ?, ?)`, [title, description, image, coords]).then(() => {
-                    cacheMiddleware(req, res, next, "Addresses")
                     res.status(200).redirect("/admin/edit/about")
                 }).catch(error => {
                     console.error(`/controllers/admin/edit.js: ${error}`)
@@ -191,7 +186,6 @@ exports.editTableAddressesInsert = async (req, res, next) => {
         })
     } else {
         req.database.promise().query(`INSERT INTO Addresses (address_title, address_description, address_coords) VALUES (?, ?, ?)`, [title, description, coords]).then(() => {
-            cacheMiddleware(req, res, next, "Addresses")
             res.status(200).redirect("/admin/edit/about")
         }).catch(error => {
             console.error(`/controllers/admin/edit.js: ${error}`)
@@ -205,8 +199,7 @@ exports.editTableAddressesInsert = async (req, res, next) => {
 }
 
 exports.editTableAddressesTruncate = async (req, res, next) => {
-    req.database.promise().query(`TRUNCATE TABLE Addresses`).then(() => {
-        cacheMiddleware(req, res, next, "Addresses")
+    req.database.promise().query(`DELETE FROM Addresses`).then(() => {
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -221,7 +214,6 @@ exports.editTableAddressesTruncate = async (req, res, next) => {
 exports.editTableAddressesDelete = async (req, res, next) => {
     const id = purify(req.params.address_id ?? "")
     req.database.promise().query(`DELETE FROM Addresses WHERE address_id = ?`, [id]).then(() => {
-        cacheMiddleware(req, res, next, "Addresses")
         res.status(200).redirect("/admin/edit/about")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -237,7 +229,13 @@ exports.courses = async (req, res) => {
     res.status(200).render("adminsphere/edit/courses", {
         title: `Редактирование информации о курсах и стоимости / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
-        cache: req.cache,
+        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
+        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
+        About: (await req.database.promise().query("SELECT * FROM About"))[0],
+        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
+        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
+        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
+        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
     })
 }
 
@@ -260,7 +258,6 @@ exports.editTableBenifitsInsert = async (req, res, next) => {
             })
         } else {
             req.database.promise().query("INSERT INTO Benifits(benifit_title, benifit_description, benifit_image) VALUES (?, ?, ?)", [title, description, image]).then(() => {
-                cacheMiddleware(req, res, next, "Benifits")
                 res.status(200).redirect("/admin/edit/courses")
             }).catch(error => {
                 console.error(`/controllers/admin/edit.js: ${error}`)
@@ -275,8 +272,7 @@ exports.editTableBenifitsInsert = async (req, res, next) => {
 }
 
 exports.editTableBenifitsTruncate = async (req, res, next) => {
-    req.database.promise().query(`TRUNCATE TABLE Benifits`).then(() => {
-        cacheMiddleware(req, res, next, "Benifits")
+    req.database.promise().query(`DELETE FROM Benifits`).then(() => {
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -291,7 +287,6 @@ exports.editTableBenifitsTruncate = async (req, res, next) => {
 exports.editTableBenifitsDelete = async (req, res, next) => {
     const id = purify(req.params.benifit_id ?? "")
     req.database.promise().query(`DELETE FROM Benifits WHERE benifit_id = ?`, [id]).then(() => {
-        cacheMiddleware(req, res, next, "Benifits")
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -324,7 +319,6 @@ exports.editTableCoursesInsert = async (req, res, next) => {
     else parameters = JSON.stringify(parameters)
 
     req.database.promise().query(`INSERT INTO Courses (course_title, course_description, course_color, course_parameters) VALUES (?, ?, ?, ?)`, [title, description, color, parameters]).then(() => {
-        cacheMiddleware(req, res, next, "Courses")
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -337,8 +331,7 @@ exports.editTableCoursesInsert = async (req, res, next) => {
 }
 
 exports.editTableCoursesTruncate = async (req, res, next) => {
-    req.database.promise().query(`TRUNCATE TABLE Courses`).then(() => {
-        cacheMiddleware(req, res, next, "Courses")
+    req.database.promise().query(`DELETE FROM Courses`).then(() => {
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -353,7 +346,6 @@ exports.editTableCoursesTruncate = async (req, res, next) => {
 exports.editTableCoursesDelete = async (req, res, next) => {
     const id = purify(req.params.course_id ?? "")
     req.database.promise().query(`DELETE FROM Courses WHERE course_id = ?`, [id]).then(() => {
-        cacheMiddleware(req, res, next, "Courses")
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -367,8 +359,7 @@ exports.editTableCoursesDelete = async (req, res, next) => {
 
 exports.editTableSalesUpdate = async (req, res, next) => {
     const content = purify(req.body.sales_content ?? "")
-    req.database.promise().query(`INSERT INTO Sales (sale_type, sale_content) VALUES ("Содержание", ?) ON DUPLICATE KEY UPDATE sale_content = ?;`, [content, content]).then(() => {
-        cacheMiddleware(req, res, next, "Sales")
+    req.database.promise().query(`INSERT INTO Sales (sale_type, sale_content) VALUES ("Содержание", ?) ON CONFLICT(sale_type) DO UPDATE SET sale_content = excluded.sale_content;`, [content]).then(() => {
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -383,7 +374,6 @@ exports.editTableSalesUpdate = async (req, res, next) => {
 exports.editTablePricingDelete = async (req, res, next) => {
     const id = purify(req.params.pricing_id ?? "")
     req.database.promise().query(`DELETE FROM Pricing WHERE pricing_id = ?`, [id]).then(() => {
-        cacheMiddleware(req, res, next, "Pricing")
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -396,8 +386,7 @@ exports.editTablePricingDelete = async (req, res, next) => {
 }
 
 exports.editTablePricingTruncate = async (req, res, next) => {
-    req.database.promise().query(`TRUNCATE TABLE Pricing`).then(() => {
-        cacheMiddleware(req, res, next, "Pricing")
+    req.database.promise().query(`DELETE FROM Pricing`).then(() => {
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -427,7 +416,6 @@ exports.editTablePricingInsert = async (req, res, next) => {
     else parameters = JSON.stringify(parameters)
 
     req.database.promise().query(`INSERT INTO Pricing(pricing_title, pricing_subtitle, pricing_price, pricing_old_price, pricing_parameters) VALUES (?,?,?,?,?)`, [title, subtitle, Number(price), Number(old_price), parameters]).then(() => {
-        cacheMiddleware(req, res, next, "Pricing")
         res.status(200).redirect("/admin/edit/courses")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
@@ -443,7 +431,13 @@ exports.pricing = async (req, res) => {
     res.status(200).render("adminsphere/edit/pricing", {
         title: `Редактирование контактной информации / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
-        cache: req.cache,
+        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
+        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
+        About: (await req.database.promise().query("SELECT * FROM About"))[0],
+        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
+        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
+        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
+        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
     })
 }
 
@@ -451,7 +445,13 @@ exports.news = async (req, res) => {
     res.status(200).render("adminsphere/edit/news", {
         title: `Редактирование новостей / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
-        cache: req.cache,
+        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
+        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
+        About: (await req.database.promise().query("SELECT * FROM About"))[0],
+        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
+        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
+        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
+        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
     })
 }
 
@@ -461,7 +461,13 @@ exports.new = async (req, res) => {
     res.status(200).render("adminsphere/edit/new", {
         title: `Редактирование новости / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
-        cache: req.cache,
+        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
+        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
+        About: (await req.database.promise().query("SELECT * FROM About"))[0],
+        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
+        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
+        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
+        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
         id,
     })
 }
@@ -470,6 +476,13 @@ exports.newCreate = async (req, res) => {
     res.status(200).render("adminsphere/edit/newcreate", {
         title: `Создание новости / Кот-Полиглот`,
         admin_login: process.env.ADMIN_LOGIN,
+        Home: (await req.database.promise().query("SELECT * FROM Home"))[0],
+        Miscs: (await req.database.promise().query("SELECT * FROM Miscs"))[0],
+        About: (await req.database.promise().query("SELECT * FROM About"))[0],
+        Addresses: (await req.database.promise().query("SELECT * FROM Addresses"))[0],
+        GlobalLinks: (await req.database.promise().query("SELECT * FROM GlobalLinks"))[0],
+        Contacts: (await req.database.promise().query("SELECT * FROM Contacts"))[0],
+        TaxDeduction: (await req.database.promise().query("SELECT * FROM TaxDeduction"))[0],
     })
 }
 
@@ -494,7 +507,6 @@ exports.editTableNewsInsert = async (req, res, next) => {
             })
         } else {
             req.database.promise().query("INSERT INTO News(new_title, new_image, new_is_in_slider, new_description) VALUES (?, ?, ?, ?)", [title, image, isInSlider, description]).then(() => {
-                cacheMiddleware(req, res, next, "News")
                 res.status(200).redirect("/admin/edit/news")
             }).catch(error => {
                 console.error(`/controllers/admin/edit.js: ${error}`)
@@ -532,7 +544,6 @@ exports.editTableNewsUpdate = async (req, res, next) => {
                 })
             } else {
                 req.database.promise().query("UPDATE News SET new_title = ?, new_image = ?, new_is_in_slider = ?, new_description = ? WHERE new_id = ?", [title, image, isInSlider, description, id]).then(() => {
-                    cacheMiddleware(req, res, next, "News")
                     res.status(200).redirect("/admin/edit/news")
                 }).catch(error => {
                     console.error(`/controllers/admin/edit.js: ${error}`)
@@ -546,7 +557,6 @@ exports.editTableNewsUpdate = async (req, res, next) => {
         })
     } else {
         req.database.promise().query("UPDATE News SET new_title = ?, new_is_in_slider = ?, new_description = ? WHERE new_id = ?", [title, isInSlider, description, id]).then(() => {
-            cacheMiddleware(req, res, next, "News")
             res.status(200).redirect("/admin/edit/news")
         }).catch(error => {
             console.error(`/controllers/admin/edit.js: ${error}`)
@@ -562,7 +572,6 @@ exports.editTableNewsUpdate = async (req, res, next) => {
 exports.editTableNewsDelete = async (req, res, next) => {
     const id = req.params.new_id ?? 0
     req.database.promise().query(`DELETE FROM News WHERE new_id = ?`, [id]).then(() => {
-        cacheMiddleware(req, res, next, "News")
         res.status(200).redirect("/admin/edit/news")
     }).catch(error => {
         console.error(`/controllers/admin/edit.js: ${error}`)
